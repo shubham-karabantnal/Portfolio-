@@ -1868,18 +1868,20 @@
       z-index: 10001;
       transform: translate3d(-50%, -50%, 0);
       mix-blend-mode: difference;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
     }
 
     .custom-cursor.hovered {
       width: 46px;
       height: 46px;
-      background-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.15);
       border-color: #ffffff;
     }
 
     .custom-cursor-dot.hovered {
-      opacity: 0;
+      opacity: 1;
+      background-color: #ffffff;
+      transform: translate3d(-50%, -50%, 0) scale(1.5);
     }
   </style>
 </head>
@@ -2400,7 +2402,7 @@
         isMuted = !isMuted;
 
         fgVideo.muted = isMuted;
-        bgVideo.muted = isMuted;
+        bgVideo.muted = true; // Keep background video permanently muted to prevent echoing
 
         // Ensure playback continues when unmuted
         if (!isMuted) {
@@ -2439,7 +2441,7 @@
           } else {
             // Restore previous user mute state when returning to focus
             fgVideo.muted = userMuteStateBeforeScroll;
-            bgVideo.muted = userMuteStateBeforeScroll;
+            bgVideo.muted = true; // Keep background video permanently muted to prevent echoing
           }
         });
       }, {
