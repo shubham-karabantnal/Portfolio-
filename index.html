@@ -3110,44 +3110,58 @@
           // Loading interactive button state
           const originalBtnContent = submitBtn.innerHTML;
           submitBtn.disabled = true;
-          submitBtn.innerHTML = '<span>Opening Mail...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
+          submitBtn.innerHTML = '<span>Sending Message...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
 
-          try {
-            // Construct direct mailto URL
-            const mailtoUrl = `mailto:shubham.s.karabantnal97@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-            
-            // Redirect to mailto link
-            window.location.href = mailtoUrl;
+          // Submit form via FormSubmit AJAX endpoint
+          fetch("https://formsubmit.co/ajax/shubham.s.karabantnal97@gmail.com", {
+            method: "POST",
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              Name: name,
+              Email: email,
+              Subject: subject,
+              Message: message,
+              _subject: `New Portfolio Message: ${subject}`,
+              _captcha: "false"
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('Server error');
+            }
+          })
+          .then(data => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-circle-check"></i>';
+            submitBtn.style.background = '#27c93f';
+            submitBtn.style.borderColor = '#27c93f';
+            submitBtn.style.color = '#ffffff';
 
-            // Success state UI feedback
+            formFeedback.classList.add('success');
+            formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
+
+            // Reset form input values
+            contactForm.reset();
+
+            // Restore submit button after 4 seconds
             setTimeout(() => {
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = '<span>Mail Opened!</span> <i class="fa-solid fa-circle-check"></i>';
-              submitBtn.style.background = '#27c93f';
-              submitBtn.style.borderColor = '#27c93f';
-              submitBtn.style.color = '#ffffff';
-
-              formFeedback.classList.add('success');
-              formFeedback.textContent = 'Opened your email application. Please click send in your mail app.';
-
-              // Reset form input values
-              contactForm.reset();
-
-              // Restore submit button after 4 seconds
-              setTimeout(() => {
-                submitBtn.innerHTML = originalBtnContent;
-                submitBtn.style.background = '';
-                submitBtn.style.borderColor = '';
-                submitBtn.style.color = '';
-              }, 4000);
-            }, 1000);
-
-          } catch (error) {
+              submitBtn.innerHTML = originalBtnContent;
+              submitBtn.style.background = '';
+              submitBtn.style.borderColor = '';
+              submitBtn.style.color = '';
+            }, 4000);
+          })
+          .catch(error => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnContent;
             formFeedback.classList.add('error');
-            formFeedback.textContent = 'Unable to open mail client automatically. Please copy the email address and write directly.';
-          }
+            formFeedback.textContent = 'Unable to send message. Please email directly to shubham.s.karabantnal97@gmail.com.';
+          });
         });
       }
 
