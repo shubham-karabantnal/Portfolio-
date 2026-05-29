@@ -1876,12 +1876,14 @@
       height: 46px;
       background-color: rgba(255, 255, 255, 0.15);
       border-color: #ffffff;
+      mix-blend-mode: normal !important;
     }
 
     .custom-cursor-dot.hovered {
       opacity: 1;
-      background-color: #ffffff;
+      background-color: #ffffff !important;
       transform: translate3d(-50%, -50%, 0) scale(1.5);
+      mix-blend-mode: normal !important;
     }
   </style>
 </head>
@@ -2505,17 +2507,21 @@
       }
       requestAnimationFrame(animateCursor);
       
-      // Dynamic hovered states binding
-      const interactives = document.querySelectorAll('a, button, .btn, .stat-card, .skill-card, .achievement-card, .project-card, .logo, .logo-container, .timeline-card, .hamburger, .social-btn');
-      interactives.forEach(el => {
-        el.addEventListener('mouseenter', () => {
+      // Dynamic hovered states binding using event delegation for a bulletproof cursor on all elements
+      const interactiveSelector = 'a, button, [role="button"], [onclick], .btn, .nav-link, .mobile-nav-link, .stat-card, .skill-card, .achievement-card, .project-card, .logo, .logo-container, .timeline-card, .hamburger, .social-btn, .email-link';
+      
+      document.addEventListener('mouseover', (e) => {
+        if (e.target && e.target.closest(interactiveSelector)) {
           cursor.classList.add('hovered');
           cursorDot.classList.add('hovered');
-        });
-        el.addEventListener('mouseleave', () => {
+        }
+      });
+      
+      document.addEventListener('mouseout', (e) => {
+        if (!e.relatedTarget || !e.relatedTarget.closest(interactiveSelector)) {
           cursor.classList.remove('hovered');
           cursorDot.classList.remove('hovered');
-        });
+        }
       });
 
       // 8. Custom WebGL SplashCursor Fluid Simulation Component
