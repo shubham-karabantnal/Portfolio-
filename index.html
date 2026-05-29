@@ -644,62 +644,84 @@
       justify-content: flex-start;
     }
 
-    /* Buttons Design */
-    .btn {
+    /* Buttons Design: Liquid Glass Buttons */
+    .btn,
+    .btn-liquid {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      padding: 1rem 2.2rem;
-      font-size: 0.95rem;
+      gap: 0.8rem;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
       font-weight: 600;
-      font-family: var(--font-body);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: var(--transition-fluid);
-      overflow: hidden;
+      color: var(--accent) !important;
+      background: transparent;
+      border: none;
+      border-radius: 100px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: none !important; /* Aesthetic cursor active */
+      overflow: visible;
       letter-spacing: 0.03em;
+      font-family: var(--font-body);
     }
 
-    .btn-filled {
-      background: var(--accent);
-      color: var(--bg);
-      border: 1px solid var(--accent);
-      box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.25);
-    }
-
-    .btn-filled:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.45);
-      background: #4de6b3;
-    }
-
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-ghost::before {
+    .btn::before,
+    .btn-liquid::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-      transform: translateX(-100%);
-      transition: var(--transition-fluid);
+      border-radius: 100px;
+      z-index: 0;
+      box-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.03),
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.15),
+        inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.85),
+        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
+        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
+        inset 0 0 6px 6px rgba(255, 255, 255, 0.12),
+        inset 0 0 2px 2px rgba(255, 255, 255, 0.06),
+        0 0 12px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .btn-ghost:hover::before {
-      transform: translateX(100%);
+    .btn::after,
+    .btn-liquid::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      z-index: -1;
+      backdrop-filter: url("#container-glass") blur(8px);
+      -webkit-backdrop-filter: url("#container-glass") blur(8px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .btn-ghost:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-focus);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    .btn:hover,
+    .btn-liquid:hover {
+      transform: scale(1.05) translateY(-2px);
+      color: #ffffff !important;
+      text-shadow: 0 0 10px var(--accent);
+    }
+
+    .btn:hover::before,
+    .btn-liquid:hover::before {
+      box-shadow: 
+        0 0 15px rgba(var(--accent-rgb), 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.12),
+        inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.35),
+        inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.95),
+        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.8),
+        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.8),
+        inset 0 0 8px 8px rgba(255, 255, 255, 0.25),
+        0 0 20px rgba(var(--accent-rgb), 0.2);
+    }
+
+    .btn:active,
+    .btn-liquid:active {
+      transform: scale(0.97) translateY(0);
     }
 
     /* Floating Video Controls */
@@ -717,24 +739,74 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: rgba(14, 17, 23, 0.5);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
+      background: transparent;
+      border: none;
       color: var(--text-primary);
-      cursor: pointer;
+      cursor: none !important;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
-      transition: var(--transition-snappy);
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: visible;
+    }
+
+    .btn-mute::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      z-index: 0;
+      box-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.03),
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.15),
+        inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.85),
+        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
+        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
+        inset 0 0 6px 6px rgba(255, 255, 255, 0.12),
+        inset 0 0 2px 2px rgba(255, 255, 255, 0.06),
+        0 0 12px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-mute::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      z-index: -1;
+      backdrop-filter: url("#container-glass") blur(8px);
+      -webkit-backdrop-filter: url("#container-glass") blur(8px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-mute i {
+      position: relative;
+      z-index: 10;
     }
 
     .btn-mute:hover {
-      border-color: var(--accent);
+      transform: scale(1.1) translateY(-2px);
       color: var(--accent);
-      background: rgba(var(--accent-rgb), 0.05);
-      box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
-      transform: scale(1.05);
+    }
+
+    .btn-mute:hover::before {
+      box-shadow: 
+        0 0 15px rgba(var(--accent-rgb), 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.12),
+        inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.35),
+        inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.95),
+        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.8),
+        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.8),
+        inset 0 0 8px 8px rgba(255, 255, 255, 0.25),
+        0 0 20px rgba(var(--accent-rgb), 0.2);
+    }
+
+    .btn-mute:active {
+      transform: scale(0.95) translateY(0);
     }
 
     .sound-badge {
@@ -1982,8 +2054,8 @@
       position: absolute;
       top: 1.5rem;
       right: 1.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      border: none;
       color: var(--text-primary);
       width: 38px;
       height: 38px;
@@ -1991,15 +2063,63 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: var(--transition-snappy);
+      cursor: none !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .modal-close::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      z-index: 0;
+      box-shadow: 
+        0 0 6px rgba(0, 0, 0, 0.03),
+        0 2px 4px rgba(0, 0, 0, 0.08),
+        inset 1px 1px 0.5px -1.5px rgba(255, 255, 255, 0.1),
+        inset -1px -1px 0.5px -1.5px rgba(255, 255, 255, 0.8),
+        inset 0 0 4px 4px rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-close::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      z-index: -1;
+      backdrop-filter: url("#container-glass") blur(4px);
+      -webkit-backdrop-filter: url("#container-glass") blur(4px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-close i {
+      position: relative;
+      z-index: 10;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .modal-close:hover {
-      background: var(--accent-warm);
-      border-color: var(--accent-warm);
-      color: #ffffff;
+      color: var(--accent-warm);
+    }
+
+    .modal-close:hover i {
       transform: rotate(90deg);
+    }
+
+    .modal-close:hover::before {
+      box-shadow: 
+        0 0 10px rgba(var(--accent-warm-rgb), 0.3),
+        0 3px 8px rgba(0, 0, 0, 0.1),
+        inset 1px 1px 0.5px -1.5px rgba(255, 255, 255, 0.25),
+        inset -1px -1px 0.5px -1.5px rgba(255, 255, 255, 0.9),
+        inset 0 0 6px 6px rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-close:active {
+      transform: scale(0.95);
     }
 
     .modal-title {
@@ -2182,77 +2302,7 @@
       border-bottom-color: rgba(255, 255, 255, 0.3);
     }
 
-    /* Liquid Glass Button styling */
-    .btn-liquid {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--accent) !important;
-      background: transparent;
-      border: none;
-      border-radius: 100px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: none !important; /* Aesthetic cursor active */
-      overflow: visible;
-    }
 
-    .btn-liquid::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 100px;
-      z-index: 0;
-      box-shadow: 
-        0 0 8px rgba(0, 0, 0, 0.03),
-        0 2px 6px rgba(0, 0, 0, 0.08),
-        inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.15),
-        inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.85),
-        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
-        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
-        inset 0 0 6px 6px rgba(255, 255, 255, 0.12),
-        inset 0 0 2px 2px rgba(255, 255, 255, 0.06),
-        0 0 12px rgba(0, 0, 0, 0.15);
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-liquid::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 100px;
-      z-index: -1;
-      backdrop-filter: url("#container-glass") blur(8px);
-      -webkit-backdrop-filter: url("#container-glass") blur(8px);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-liquid:hover {
-      transform: scale(1.05) translateY(-2px);
-      color: #ffffff !important;
-      text-shadow: 0 0 10px var(--accent);
-    }
-
-    .btn-liquid:hover::before {
-      box-shadow: 
-        0 0 15px rgba(var(--accent-rgb), 0.3),
-        0 4px 12px rgba(0, 0, 0, 0.12),
-        inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.35),
-        inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.95),
-        inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.8),
-        inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.8),
-        inset 0 0 8px 8px rgba(255, 255, 255, 0.25),
-        0 0 20px rgba(var(--accent-rgb), 0.2);
-    }
-
-    .btn-liquid:active {
-      transform: scale(0.97) translateY(0);
-    }
 
     /* Metal Button styling (Gold Variant) */
     .btn-metal-gold {
@@ -2485,8 +2535,8 @@
       <p class="hero-desc">Building premium web experiences at the intersection of design and engineering.</p>
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-liquid">View My Work <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="Assets/Shubham_Karabantnal_Resume.pdf" download="Shubham_Karabantnal_Resume.pdf" class="btn-metal-gold">
-          <span><i class="fa-solid fa-download"></i> Download Resume</span>
+        <a href="Assets/Shubham_Karabantnal_Resume.pdf" download="Shubham_Karabantnal_Resume.pdf" class="btn btn-liquid">
+          <i class="fa-solid fa-download"></i> Download Resume
         </a>
       </div>
     </div>
@@ -2693,8 +2743,8 @@
           </div>
 
           <div style="margin-top: 1.5rem;">
-            <a href="https://khaana-food-delivery.vercel.app/" target="_blank" rel="noopener" class="btn-metal-bronze">
-              <span>Launch Live Demo <i class="fa-solid fa-square-arrow-up-right"></i></span>
+            <a href="https://khaana-food-delivery.vercel.app/" target="_blank" rel="noopener" class="btn btn-liquid">
+              Launch Live Demo <i class="fa-solid fa-square-arrow-up-right"></i>
             </a>
           </div>
         </div>
@@ -2790,13 +2840,13 @@
         </form>
 
         <div class="social-grid">
-          <a href="https://www.linkedin.com/in/shubham-karbhantnal-b3ab63320?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="social-btn glass">
+          <a href="https://www.linkedin.com/in/shubham-karbhantnal-b3ab63320?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="social-btn btn-liquid">
             <i class="fa-brands fa-linkedin-in" style="color: #0077b5;"></i> LinkedIn
           </a>
-          <a href="https://github.com/shubham-karabantnal" target="_blank" rel="noopener" class="social-btn glass">
+          <a href="https://github.com/shubham-karabantnal" target="_blank" rel="noopener" class="social-btn btn-liquid">
             <i class="fa-brands fa-github"></i> GitHub
           </a>
-          <a href="https://www.instagram.com/shubham.karabantnal?igsh=ejFrb2RnZGg5YnNs" target="_blank" rel="noopener" class="social-btn glass">
+          <a href="https://www.instagram.com/shubham.karabantnal?igsh=ejFrb2RnZGg5YnNs" target="_blank" rel="noopener" class="social-btn btn-liquid">
             <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
           </a>
         </div>
