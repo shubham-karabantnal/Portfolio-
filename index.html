@@ -2006,6 +2006,158 @@
       border-color: var(--accent);
       transform: translateY(-2px);
     }
+
+    /* ----------------------------------------------------
+       PREMIUM CONTACT FORM CSS
+       ---------------------------------------------------- */
+    .contact-form {
+      width: 100%;
+      max-width: 620px;
+      padding: 3rem;
+      border-radius: 20px;
+      background: rgba(14, 17, 23, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1.8rem;
+      width: 100%;
+    }
+
+    @media (max-width: 576px) {
+      .form-row {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+
+    .input-group {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 0.8rem 0;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.3s;
+      cursor: text !important; /* Restore normal typing I-beam cursor */
+    }
+
+    .input-group textarea {
+      resize: none;
+    }
+
+    /* Floating Labels Logic using not(:placeholder-shown) */
+    .input-group label {
+      position: absolute;
+      left: 0;
+      top: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  font-size 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  color 0.3s ease;
+      transform-origin: left top;
+    }
+
+    .input-group input:focus ~ label,
+    .input-group input:not(:placeholder-shown) ~ label,
+    .input-group textarea:focus ~ label,
+    .input-group textarea:not(:placeholder-shown) ~ label {
+      transform: translateY(-1.5rem) scale(0.85);
+      color: var(--accent);
+    }
+
+    /* Glowing Focus Line */
+    .input-focus-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .input-group input:focus ~ .input-focus-line,
+    .input-group textarea:focus ~ .input-focus-line {
+      width: 100%;
+    }
+
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #080A0F;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3);
+      cursor: none !important; /* Hide native cursor for hover button */
+    }
+
+    .btn-submit:hover {
+      box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-submit-icon {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-submit:hover .btn-submit-icon {
+      transform: translateX(4px) translateY(-4px);
+    }
+
+    .form-feedback {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      text-align: center;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .form-feedback.success {
+      color: #27c93f;
+      opacity: 1;
+      max-height: 50px;
+      margin-top: 0.5rem;
+    }
+
+    .form-feedback.error {
+      color: #ff5f56;
+      opacity: 1;
+      max-height: 50px;
+      margin-top: 0.5rem;
+    }
+
+    .input-group:hover input,
+    .input-group:hover textarea {
+      border-bottom-color: rgba(255, 255, 255, 0.3);
+    }
   </style>
 </head>
 
@@ -2367,6 +2519,38 @@
         <p class="contact-tagline">Let's build something remarkable.</p>
         <a href="mailto:shubham.s.karabantnal97@gmail.com" class="email-link">shubham.s.karabantnal97@gmail.com</a>
 
+        <!-- PREMIUM CONTACT FORM -->
+        <form class="contact-form glass" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="input-group">
+              <input type="text" id="contactName" required placeholder=" " autocomplete="name">
+              <label for="contactName">Name</label>
+              <div class="input-focus-line"></div>
+            </div>
+            <div class="input-group">
+              <input type="email" id="contactEmail" required placeholder=" " autocomplete="email">
+              <label for="contactEmail">Email</label>
+              <div class="input-focus-line"></div>
+            </div>
+          </div>
+          <div class="input-group">
+            <input type="text" id="contactSubject" required placeholder=" " autocomplete="off">
+            <label for="contactSubject">Subject</label>
+            <div class="input-focus-line"></div>
+          </div>
+          <div class="input-group">
+            <textarea id="contactMessage" required placeholder=" " rows="5"></textarea>
+            <label for="contactMessage">Your Message</label>
+            <div class="input-focus-line"></div>
+          </div>
+          <button type="submit" class="btn btn-filled btn-submit" id="submitFormBtn">
+            <span>Send Message</span> <i class="fa-solid fa-paper-plane btn-submit-icon"></i>
+          </button>
+          
+          <!-- SUCCESS/ERROR MESSAGES -->
+          <div class="form-feedback" id="formFeedback"></div>
+        </form>
+
         <div class="social-grid">
           <a href="https://www.linkedin.com/in/shubham-karbhantnal-b3ab63320?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="social-btn glass">
             <i class="fa-brands fa-linkedin-in" style="color: #0077b5;"></i> LinkedIn
@@ -2602,6 +2786,70 @@
         }
       });
 
+      // 4.6. Premium Contact Form Controller
+      const contactForm = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitFormBtn');
+      const formFeedback = document.getElementById('formFeedback');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById('contactName').value.trim();
+          const email = document.getElementById('contactEmail').value.trim();
+          const subject = document.getElementById('contactSubject').value.trim();
+          const message = document.getElementById('contactMessage').value.trim();
+
+          // Reset feedback messages
+          formFeedback.classList.remove('success', 'error');
+          formFeedback.textContent = '';
+
+          // Validate fields are filled
+          if (!name || !email || !subject || !message) {
+            formFeedback.classList.add('error');
+            formFeedback.textContent = 'Please fill out all required fields.';
+            return;
+          }
+
+          // Validate email pattern
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            formFeedback.classList.add('error');
+            formFeedback.textContent = 'Please enter a valid email address.';
+            return;
+          }
+
+          // Loading interactive button state
+          const originalBtnContent = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>Sending Message...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
+
+          // Simulate safe async API call
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-circle-check"></i>';
+            submitBtn.style.background = '#27c93f';
+            submitBtn.style.borderColor = '#27c93f';
+            submitBtn.style.color = '#ffffff';
+
+            formFeedback.classList.add('success');
+            formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
+
+            // Reset form input values
+            contactForm.reset();
+
+            // Restore submit button after 4 seconds
+            setTimeout(() => {
+              submitBtn.innerHTML = originalBtnContent;
+              submitBtn.style.background = '';
+              submitBtn.style.borderColor = '';
+              submitBtn.style.color = '';
+            }, 4000);
+
+          }, 1800);
+        });
+      }
+
       // 5. Scroll-To-Mute Intersection Observer
       const heroSection = document.getElementById('hero');
       const heroAudioObserver = new IntersectionObserver((entries) => {
@@ -2682,9 +2930,18 @@
       const interactiveSelector = 'a, button, [role="button"], [onclick], .btn, .nav-link, .mobile-nav-link, .stat-card, .skill-card, .achievement-card, .project-card, .logo, .logo-container, .timeline-card, .hamburger, .social-btn, .email-link';
       
       document.addEventListener('mouseover', (e) => {
-        if (e.target && e.target.closest(interactiveSelector)) {
+        if (e.target && e.target.closest('input, textarea')) {
+          // Hide custom cursor elements over input fields to allow standard browser text pointer I-beam
+          cursor.style.opacity = '0';
+          cursorDot.style.opacity = '0';
+        } else if (e.target && e.target.closest(interactiveSelector)) {
           cursor.classList.add('hovered');
           cursorDot.classList.add('hovered');
+          cursor.style.opacity = '';
+          cursorDot.style.opacity = '';
+        } else {
+          cursor.style.opacity = '';
+          cursorDot.style.opacity = '';
         }
       });
       
