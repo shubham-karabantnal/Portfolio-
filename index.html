@@ -354,30 +354,53 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       font-family: var(--font-body);
-      color: var(--text-muted);
+      color: var(--text-muted) !important;
       position: relative;
-      padding: 0.3rem 0;
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: none !important;
+      overflow: visible;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 100px;
+      z-index: -1;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: transparent;
+      box-shadow: 
+        0 0 6px rgba(0, 0, 0, 0.03),
+        0 2px 4px rgba(0, 0, 0, 0.08),
+        inset 1px 1px 0.5px -1.5px rgba(255, 255, 255, 0.1),
+        inset -1px -1px 0.5px -1.5px rgba(255, 255, 255, 0.8),
+        inset 0 0 4px 4px rgba(255, 255, 255, 0.08);
+      pointer-events: none;
     }
 
     .nav-link::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 1px;
-      background-color: var(--accent);
-      transition: var(--transition-snappy);
-      transform: translateX(-50%);
+      inset: 0;
+      border-radius: 100px;
+      z-index: -2;
+      opacity: 0;
+      backdrop-filter: url("#container-glass") blur(4px);
+      -webkit-backdrop-filter: url("#container-glass") blur(4px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-link:hover {
-      color: var(--text-primary);
+      color: var(--accent) !important;
+      text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.4);
     }
 
+    .nav-link:hover::before,
     .nav-link:hover::after {
-      width: 100%;
-      box-shadow: 0 0 10px var(--accent);
+      opacity: 1;
     }
 
     .nav-link-education {
