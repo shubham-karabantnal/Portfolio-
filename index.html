@@ -1909,6 +1909,103 @@
       transform: translate3d(-50%, -50%, 0) scale(1.5);
       mix-blend-mode: normal !important;
     }
+
+    /* ----------------------------------------------------
+       EDUCATION MODAL DIALOG
+       ---------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(4, 5, 8, 0.4);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      width: 90%;
+      max-width: 680px;
+      max-height: 85vh;
+      background: rgba(14, 17, 23, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow-y: auto;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+    }
+
+    .modal-close:hover {
+      background: var(--accent-warm);
+      border-color: var(--accent-warm);
+      color: #ffffff;
+      transform: rotate(90deg);
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-card .timeline {
+      margin-top: 1rem;
+    }
+
+    .modal-card .timeline-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: var(--transition-fluid);
+    }
+
+    .modal-card .timeline-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 
@@ -2060,61 +2157,7 @@
       </div>
     </section>
 
-    <!-- EDUCATION SECTION -->
-    <section id="education" class="reveal scroll-reveal">
-      <h2 class="section-title">Education</h2>
-      <div class="timeline">
-        
-        <!-- Milestone 3: B.Tech -->
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card glass">
-            <div class="timeline-meta">
-              <span class="timeline-period">2024 &mdash; 2028</span>
-              <span class="timeline-record">CGPA: 6.93</span>
-            </div>
-            <h3 class="timeline-degree">B.Tech in Computer Science &amp; Engineering</h3>
-            <h4 class="timeline-inst">NMAMIT, Nitte</h4>
-            <p class="timeline-desc">
-              Currently pursuing a B.Tech in Computer Science, actively exploring modern frontend frameworks, seamless animations, and scalable backend systems — committed to clean code, thoughtful UI/UX design, and continuous learning.
-            </p>
-          </div>
-        </div>
-
-        <!-- Milestone 2: 12th Grade -->
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card glass">
-            <div class="timeline-meta">
-              <span class="timeline-period">Completed 2024</span>
-              <span class="timeline-record">Percentage: 91%</span>
-            </div>
-            <h3 class="timeline-degree">Pre-University Education (12th Grade)</h3>
-            <h4 class="timeline-inst">Excellent PU College, Moodubidire</h4>
-            <p class="timeline-desc">
-              Completed intensive Pre-University studies with excellent academic records, specializing in science and computing logic foundations.
-            </p>
-          </div>
-        </div>
-
-        <!-- Milestone 1: 10th Grade -->
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card glass">
-            <div class="timeline-meta">
-              <span class="timeline-period">Completed 2021</span>
-              <span class="timeline-record">Percentage: 81.6%</span>
-            </div>
-            <h3 class="timeline-degree">Secondary School Certificate (10th Grade)</h3>
-            <h4 class="timeline-inst">Sharada Residential School, Udupi</h4>
-            <p class="timeline-desc">
-              Acquired foundational logic structures and baseline analytical sciences, sparking an early interest in computer science and quantitative problem solving.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
+    <!-- Education details completely removed from scrolling body flow as per request -->
 
     <!-- TECH STACK SECTION -->
     <section id="skills" class="reveal scroll-reveal">
@@ -2345,6 +2388,66 @@
 
   </div>
 
+  <!-- EDUCATION MODAL DIALOG CONTAINER -->
+  <div id="educationModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-card glass">
+      <button class="modal-close" id="closeModalBtn" aria-label="Close Education Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h2 class="modal-title" id="modalTitle">Education Details</h2>
+      
+      <div class="timeline">
+        <!-- Milestone 3: B.Tech -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass">
+            <div class="timeline-meta">
+              <span class="timeline-period">2024 &mdash; 2028</span>
+              <span class="timeline-record">CGPA: 6.93</span>
+            </div>
+            <h3 class="timeline-degree">B.Tech in Computer Science &amp; Engineering</h3>
+            <h4 class="timeline-inst">NMAMIT, Nitte</h4>
+            <p class="timeline-desc">
+              Currently pursuing a B.Tech in Computer Science, actively exploring modern frontend frameworks, seamless animations, and scalable backend systems — committed to clean code, thoughtful UI/UX design, and continuous learning.
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 2: 12th Grade -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass">
+            <div class="timeline-meta">
+              <span class="timeline-period">Completed 2024</span>
+              <span class="timeline-record">Percentage: 91%</span>
+            </div>
+            <h3 class="timeline-degree">Pre-University Education (12th Grade)</h3>
+            <h4 class="timeline-inst">Excellent PU College, Moodubidire</h4>
+            <p class="timeline-desc">
+              Completed intensive Pre-University studies with excellent academic records, specializing in science and computing logic foundations.
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 1: 10th Grade -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass">
+            <div class="timeline-meta">
+              <span class="timeline-period">Completed 2021</span>
+              <span class="timeline-record">Percentage: 81.6%</span>
+            </div>
+            <h3 class="timeline-degree">Secondary School Certificate (10th Grade)</h3>
+            <h4 class="timeline-inst">Sharada Residential School, Udupi</h4>
+            <p class="timeline-desc">
+              Acquired foundational logic structures and baseline analytical sciences, sparking an early interest in computer science and quantitative problem solving.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- INTERACTIVE LOGIC (VANILLA JS) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -2454,6 +2557,50 @@
       }
 
       muteBtn.addEventListener('click', toggleMute);
+
+      // 4.5. Education Modal Dialog Controller
+      const eduLinks = document.querySelectorAll('a[href="#education"], .mobile-nav-link[href="#education"]');
+      const eduModal = document.getElementById('educationModal');
+      const closeEduBtn = document.getElementById('closeModalBtn');
+
+      function openEduModal(e) {
+        if (e) e.preventDefault();
+        if (eduModal) {
+          eduModal.classList.add('active');
+          eduModal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden'; // Lock background scrolling
+        }
+      }
+
+      function closeEduModal() {
+        if (eduModal) {
+          eduModal.classList.remove('active');
+          eduModal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = ''; // Restore background scrolling
+        }
+      }
+
+      eduLinks.forEach(link => {
+        link.addEventListener('click', openEduModal);
+      });
+
+      if (closeEduBtn) {
+        closeEduBtn.addEventListener('click', closeEduModal);
+      }
+
+      if (eduModal) {
+        eduModal.addEventListener('click', (e) => {
+          if (e.target === eduModal) {
+            closeEduModal();
+          }
+        });
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && eduModal && eduModal.classList.contains('active')) {
+          closeEduModal();
+        }
+      });
 
       // 5. Scroll-To-Mute Intersection Observer
       const heroSection = document.getElementById('hero');
