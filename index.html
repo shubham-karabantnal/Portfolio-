@@ -3112,8 +3112,30 @@
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Sending Message...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
 
-          // Simulate safe async API call
-          setTimeout(() => {
+          // Submit form via FormSubmit AJAX endpoint
+          fetch("https://formsubmit.co/ajax/shubham.s.karabantnal97@gmail.com", {
+            method: "POST",
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              Name: name,
+              Email: email,
+              Subject: subject,
+              Message: message,
+              _subject: `New Portfolio Message: ${subject}`,
+              _captcha: "false"
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('Server error');
+            }
+          })
+          .then(data => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-circle-check"></i>';
             submitBtn.style.background = '#27c93f';
@@ -3133,8 +3155,13 @@
               submitBtn.style.borderColor = '';
               submitBtn.style.color = '';
             }, 4000);
-
-          }, 1800);
+          })
+          .catch(error => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
+            formFeedback.classList.add('error');
+            formFeedback.textContent = 'Unable to send message. Please email directly to shubham.s.karabantnal97@gmail.com.';
+          });
         });
       }
 
