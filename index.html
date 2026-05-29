@@ -3112,20 +3112,23 @@
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span>Sending Message...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
 
-          // Submit form via FormSubmit AJAX endpoint
-          fetch("https://formsubmit.co/ajax/shubham.s.karabantnal97@gmail.com", {
+          // Web3Forms Integration
+          // Obtain a free access key from https://web3forms.com/
+          const web3FormsAccessKey = "YOUR_ACCESS_KEY_HERE"; 
+
+          // Submit form via Web3Forms API endpoint
+          fetch("https://api.web3forms.com/submit", {
             method: "POST",
             headers: { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
             body: JSON.stringify({
-              Name: name,
-              Email: email,
-              Subject: subject,
-              Message: message,
-              _subject: `New Portfolio Message: ${subject}`,
-              _captcha: "false"
+              access_key: web3FormsAccessKey,
+              name: name,
+              email: email,
+              subject: `New Portfolio Message: ${subject}`,
+              message: message
             })
           })
           .then(response => {
@@ -3136,31 +3139,35 @@
             }
           })
           .then(data => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-circle-check"></i>';
-            submitBtn.style.background = '#27c93f';
-            submitBtn.style.borderColor = '#27c93f';
-            submitBtn.style.color = '#ffffff';
+            if (data.success) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fa-solid fa-circle-check"></i>';
+              submitBtn.style.background = '#27c93f';
+              submitBtn.style.borderColor = '#27c93f';
+              submitBtn.style.color = '#ffffff';
 
-            formFeedback.classList.add('success');
-            formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
+              formFeedback.classList.add('success');
+              formFeedback.textContent = 'Thank you! Your message has been sent successfully.';
 
-            // Reset form input values
-            contactForm.reset();
+              // Reset form input values
+              contactForm.reset();
 
-            // Restore submit button after 4 seconds
-            setTimeout(() => {
-              submitBtn.innerHTML = originalBtnContent;
-              submitBtn.style.background = '';
-              submitBtn.style.borderColor = '';
-              submitBtn.style.color = '';
-            }, 4000);
+              // Restore submit button after 4 seconds
+              setTimeout(() => {
+                submitBtn.innerHTML = originalBtnContent;
+                submitBtn.style.background = '';
+                submitBtn.style.borderColor = '';
+                submitBtn.style.color = '';
+              }, 4000);
+            } else {
+              throw new Error(data.message || 'Web3Forms error');
+            }
           })
           .catch(error => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnContent;
             formFeedback.classList.add('error');
-            formFeedback.textContent = 'Unable to send message. Please email directly to shubham.s.karabantnal97@gmail.com.';
+            formFeedback.textContent = 'Unable to send message. Please ensure your Web3Forms Access Key is configured or email directly.';
           });
         });
       }
