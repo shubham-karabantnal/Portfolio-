@@ -1,0 +1,19 @@
+# Dependecies
+node_modules/
+
+# Local env files
+.env
+.env*.local
+
+# Editor configs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build output
+dist/
+.vite/

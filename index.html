@@ -1,0 +1,3489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shubham S K | Full-Stack Web Developer & UI/UX Enthusiast</title>
+  <meta name="description"
+    content="Portfolio of Shubham S Karabantnal - Full-Stack Web Developer & UI/UX Enthusiast. Premium web experiences at the intersection of design and engineering.">
+
+  <!-- SEO Meta Tags -->
+  <meta property="og:title" content="Shubham S K| Portfolio">
+  <meta property="og:description"
+    content="Full-Stack Web Developer & UI/UX Enthusiast crafting premium web experiences with luxury dark cinematic aesthetics.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome for Premium UI Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Devicons for Tech Stack Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+  <style>
+    /* ----------------------------------------------------
+       GLOBAL DESIGN SYSTEM & VARIABLES
+       ---------------------------------------------------- */
+    :root {
+      --bg: #080A0F;
+      --surface: #0E1117;
+      --surface-glass: rgba(14, 17, 23, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(255, 255, 255, 0.16);
+
+      --accent: #00F0FF;
+      /* neon cyan */
+      --accent-rgb: 0, 240, 255;
+      --accent-warm: #FF2E93;
+      /* neon pink */
+      --accent-warm-rgb: 255, 46, 147;
+
+      --text-primary: #F0F2F5;
+      --text-muted: #8891A4;
+
+      --glow-mint: rgba(var(--accent-rgb), 0.15);
+      --glow-warm: rgba(var(--accent-warm-rgb), 0.15);
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+
+      --transition-fluid: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-snappy: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Reset & Base Styles */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: var(--bg);
+    }
+
+    /* Custom Filmic Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      border: 2px solid var(--bg);
+      transition: var(--transition-snappy);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    /* Filmic Noise/Grain Texture Layer */
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      pointer-events: none;
+      filter: url(#noiseFilter);
+      opacity: 0.8;
+    }
+
+    /* Horizontal Scanline filmic overlay at 3% opacity */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+          rgba(0, 0, 0, 0.2) 50%);
+      background-size: 100% 4px;
+      opacity: 0.03;
+      z-index: 9998;
+      pointer-events: none;
+    }
+
+    /* Selection Color */
+    ::selection {
+      background: rgba(var(--accent-rgb), 0.2);
+      color: var(--accent);
+    }
+
+    /* Typography Utilities */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition-snappy);
+    }
+
+    /* Glassmorphism Common Utilities */
+    .glass {
+      background: rgba(14, 17, 23, 0.6);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border);
+    }
+
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 100px;
+      padding: 0.5rem 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-family: var(--font-code);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: var(--transition-fluid);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    /* Section Container Templates */
+    section {
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-title {
+      font-size: 3.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      transition: var(--transition-fluid);
+    }
+
+    section:hover .section-title::after {
+      width: 100px;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* ----------------------------------------------------
+       SCROLL-TRIGGERED REVEAL SYSTEM
+       ---------------------------------------------------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition-fluid);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Native CSS Scroll-driven animations where supported (Progressive Enhancement) */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes reveal-fade-up {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .scroll-reveal {
+          animation: reveal-fade-up auto linear;
+          animation-timeline: view();
+          animation-range: entry 10% entry 30%;
+        }
+      }
+    }
+
+    /* ----------------------------------------------------
+       NAVIGATION BAR
+       ---------------------------------------------------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 2rem;
+      transition: var(--transition-fluid);
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      padding: 1rem 2rem;
+      background: rgba(8, 10, 15, 0.75);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.05em;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      text-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
+    }
+
+    .logo span {
+      color: var(--text-primary);
+    }
+
+    .nav-avatar-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
+      transition: var(--transition-fluid);
+      background: var(--surface);
+    }
+
+    .nav-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%; /* Focus precisely on the face */
+      transform: scale(1.35); /* Zoom in to enlarge face and crop shoulders */
+      transition: var(--transition-fluid);
+    }
+
+    .nav-avatar-wrapper:hover {
+      border-color: var(--accent-warm);
+      box-shadow: 0 0 20px rgba(var(--accent-warm-rgb), 0.4);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .nav-avatar-wrapper:hover .nav-avatar-img {
+      transform: scale(1.45);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent);
+      transition: var(--transition-snappy);
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1002;
+      position: relative;
+      width: 30px;
+      height: 20px;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-primary);
+      transition: var(--transition-snappy);
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+      background-color: var(--accent);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+      background-color: var(--accent);
+    }
+
+    /* Mobile Overlay Menu */
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100dvh;
+      background: rgba(8, 10, 15, 0.95);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-fluid);
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .mobile-nav-link {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--text-muted);
+      transition: var(--transition-fluid);
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link.active {
+      color: var(--accent);
+      transform: scale(1.1);
+      text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4);
+    }
+
+    /* ----------------------------------------------------
+       HERO SECTION (Fullscreen Sticky, Video-Driven)
+       ---------------------------------------------------- */
+    .hero-section {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+      z-index: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-video-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-video-fg,
+    .hero-video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-video-bg {
+      filter: blur(60px);
+      scale: 1.25;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .hero-video-fg {
+      z-index: 1;
+    }
+
+    /* Gradients Overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, transparent 30%, rgba(8, 10, 15, 0.85) 90%),
+        linear-gradient(to top, var(--bg) 0%, rgba(8, 10, 15, 0.4) 50%, rgba(8, 10, 15, 0.7) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Hero Text Overlay Content */
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .hero-eyebrow {
+      margin-bottom: 1.5rem;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.7);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(var(--accent-rgb), 0);
+      }
+
+      100% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0);
+      }
+    }
+
+    .hero-title {
+      font-size: 5.5rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-subtitle {
+      font-size: 1.6rem;
+      font-family: var(--font-body);
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2);
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      font-weight: 400;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      color: var(--text-muted);
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: flex-start;
+    }
+
+    /* Buttons Design */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1rem 2.2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition-fluid);
+      overflow: hidden;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-filled {
+      background: var(--accent);
+      color: var(--bg);
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.25);
+    }
+
+    .btn-filled:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.45);
+      background: #4de6b3;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-ghost::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      transform: translateX(-100%);
+      transition: var(--transition-fluid);
+    }
+
+    .btn-ghost:hover::before {
+      transform: translateX(100%);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-focus);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Floating Video Controls */
+    .video-controls {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 3rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-mute {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(14, 17, 23, 0.5);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition-snappy);
+    }
+
+    .btn-mute:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.05);
+      box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
+      transform: scale(1.05);
+    }
+
+    .sound-badge {
+      background: rgba(14, 17, 23, 0.85);
+      border: 1px solid rgba(var(--accent-rgb), 0.2);
+      backdrop-filter: blur(10px);
+      color: var(--text-primary);
+      border-radius: 100px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .sound-badge.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sound-badge.pulse {
+      animation: badge-pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes badge-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(var(--accent-rgb), 0.15);
+      }
+
+      50% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 12px 4px rgba(var(--accent-rgb), 0.3);
+      }
+    }
+
+    /* Staggered Animations for Hero Content (Page Load) */
+    .hero-content>* {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-loaded .hero-content .hero-eyebrow {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    .hero-loaded .hero-content .hero-title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.3s;
+    }
+
+    .hero-loaded .hero-content .hero-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+
+    .hero-loaded .hero-content .hero-desc {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.75s;
+    }
+
+    .hero-loaded .hero-content .hero-ctas {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.9s;
+    }
+
+    /* Subsequent normal scroll content container */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      background: var(--bg);
+      margin-top: 100vh;
+      margin-top: 100dvh;
+      box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.8);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ----------------------------------------------------
+       SECTION: ABOUT
+       ---------------------------------------------------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .about-text p strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Stat Grid */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      border-radius: 8px;
+      transition: var(--transition-fluid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(var(--accent-rgb), 0.03), transparent 70%);
+      pointer-events: none;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.05);
+    }
+
+    .stat-card:nth-child(even)::before {
+      background: radial-gradient(circle at top right, rgba(var(--accent-warm-rgb), 0.03), transparent 70%);
+    }
+
+    .stat-card:nth-child(even)::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-warm);
+      transition: var(--transition-fluid);
+    }
+
+    .stat-card:nth-child(even):hover {
+      border-color: var(--accent-warm);
+      box-shadow: 0 10px 30px rgba(var(--accent-warm-rgb), 0.05);
+    }
+
+    .stat-card:nth-child(even):hover::after {
+      width: 100%;
+      box-shadow: 0 0 10px var(--accent-warm);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition-fluid);
+    }
+
+    .stat-card:hover::after {
+      width: 100%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+
+    .stat-card:hover .stat-num {
+      color: var(--accent);
+    }
+
+    .stat-card:nth-child(even):hover .stat-num {
+      color: var(--accent-warm);
+    }
+
+    .stat-lbl {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: var(--font-body);
+      font-weight: 500;
+    }
+
+    /* ----------------------------------------------------
+       SECTION: EDUCATION
+       ---------------------------------------------------- */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 31px;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent) 0%, rgba(var(--accent-rgb), 0.1) 100%);
+      box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.2);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 80px;
+      margin-bottom: 4rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 20px;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fluid);
+      box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3);
+    }
+
+    .timeline-dot::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      transition: var(--transition-fluid);
+    }
+
+    .timeline-item:hover .timeline-dot {
+      border-color: var(--accent-warm);
+      box-shadow: 0 0 20px var(--accent-warm);
+      transform: scale(1.15);
+    }
+
+    .timeline-item:hover .timeline-dot::after {
+      background-color: var(--accent-warm);
+    }
+
+    .timeline-card {
+      padding: 2.5rem;
+      border-radius: 8px;
+      transition: var(--transition-fluid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent);
+      z-index: 0;
+    }
+
+    .timeline-card:hover {
+      transform: translateX(10px) translateY(-3px);
+      border-color: rgba(var(--accent-rgb), 0.25);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--accent-rgb), 0.05);
+    }
+
+    .timeline-card:hover::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .timeline-period {
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.05);
+      padding: 0.2rem 0.8rem;
+      border-radius: 100px;
+      border: 1px solid rgba(var(--accent-rgb), 0.1);
+    }
+
+    .timeline-item:nth-child(even) .timeline-period {
+      color: var(--accent-warm);
+      background: rgba(var(--accent-warm-rgb), 0.05);
+      border-color: rgba(var(--accent-warm-rgb), 0.1);
+    }
+
+    .timeline-record {
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.8rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .timeline-inst {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+
+    .timeline-degree {
+      font-size: 2rem;
+      font-family: var(--font-display);
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .timeline-bullets {
+      margin-top: 1rem;
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .timeline-bullets li {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .timeline-bullets li i {
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    /* ----------------------------------------------------
+       SECTION: TECH STACK
+       ---------------------------------------------------- */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+
+    .skills-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .skills-group-title {
+      font-size: 1.8rem;
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .skills-group-title i {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .skills-group:nth-child(even) .skills-group-title i {
+      color: var(--accent-warm);
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .skill-card {
+      padding: 0.8rem 1.4rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: var(--transition-fluid);
+      cursor: default;
+    }
+
+    .skill-card i {
+      font-size: 1.4rem;
+      transition: var(--transition-snappy);
+    }
+
+    .skill-card span {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-3px) scale(1.03);
+      border-color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.03);
+      box-shadow: 0 5px 15px rgba(var(--accent-rgb), 0.05), inset 0 0 10px rgba(var(--accent-rgb), 0.05);
+    }
+
+    .skills-group:nth-child(even) .skill-card:hover {
+      border-color: var(--accent-warm);
+      background: rgba(var(--accent-warm-rgb), 0.03);
+      box-shadow: 0 5px 15px rgba(var(--accent-warm-rgb), 0.05), inset 0 0 10px rgba(var(--accent-warm-rgb), 0.05);
+    }
+
+    /* ----------------------------------------------------
+       SECTION: ACHIEVEMENTS
+       ---------------------------------------------------- */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .achievement-card {
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: var(--transition-fluid);
+    }
+
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.01), transparent);
+      z-index: 0;
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(var(--accent-rgb), 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--accent-rgb), 0.05);
+    }
+
+    .achievement-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), 0.05);
+      border: 1px solid rgba(var(--accent-rgb), 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.1);
+      transition: var(--transition-snappy);
+    }
+
+    .achievement-card:hover .achievement-icon {
+      transform: scale(1.1) rotate(5deg);
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .achievement-card:nth-child(2):hover .achievement-icon {
+      background: var(--accent-warm);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--accent-warm);
+    }
+
+    .achievement-card:nth-child(2) .achievement-icon {
+      color: var(--accent-warm);
+      border-color: rgba(var(--accent-warm-rgb), 0.2);
+      background: rgba(var(--accent-warm-rgb), 0.05);
+    }
+
+    .achievement-title {
+      font-size: 1.6rem;
+      font-family: var(--font-display);
+      color: var(--text-primary);
+    }
+
+    .achievement-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ----------------------------------------------------
+       SECTION: PROJECTS
+       ---------------------------------------------------- */
+    .project-card {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition-fluid);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .project-card:hover {
+      border-color: rgba(var(--accent-rgb), 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(var(--accent-rgb), 0.05);
+    }
+
+    .project-info {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .project-eyebrow {
+      font-family: var(--font-code);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .project-name {
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .project-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .project-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin: 1rem 0;
+    }
+
+    .bullet-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .bullet-icon {
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-top: 0.2rem;
+      text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.4);
+    }
+
+    .bullet-text {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .bullet-text strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .tech-pill {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      font-size: 0.75rem;
+      font-family: var(--font-code);
+      color: var(--text-muted);
+      border-radius: 4px;
+      transition: var(--transition-snappy);
+    }
+
+    .tech-pill:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.03);
+    }
+
+    /* Right column abstract visual mockup */
+    .project-visual {
+      background: linear-gradient(135deg, #0e121a, #07090e);
+      border-left: 1px solid var(--border);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 3rem;
+    }
+
+    /* Abstract Visual Elements */
+    .mockup-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mockup-bg-glow {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%);
+      z-index: 0;
+      filter: blur(20px);
+      animation: float-glow 6s infinite ease-in-out;
+    }
+
+    @keyframes float-glow {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(15px, -15px) scale(1.1);
+      }
+    }
+
+    .mockup-card {
+      position: absolute;
+      width: 280px;
+      height: 350px;
+      border-radius: 12px;
+      padding: 1.5rem;
+      z-index: 2;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      transform: rotate(-5deg) translateX(-20px);
+      transition: var(--transition-fluid);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mockup-card-secondary {
+      position: absolute;
+      width: 220px;
+      height: 120px;
+      border-radius: 10px;
+      padding: 1.2rem;
+      z-index: 3;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+      transform: rotate(6deg) translate(80px, 80px);
+      transition: var(--transition-fluid);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-color: rgba(var(--accent-warm-rgb), 0.2);
+      background: rgba(14, 17, 23, 0.8);
+    }
+
+    .mockup-container:hover .mockup-card {
+      transform: rotate(-2deg) translateX(-35px) translateY(-5px);
+    }
+
+    .mockup-container:hover .mockup-card-secondary {
+      transform: rotate(3deg) translate(95px, 90px) scale(1.02);
+    }
+
+    .mockup-header {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .mockup-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot.red {
+      background-color: #ff5f56;
+    }
+
+    .mockup-dot.yellow {
+      background-color: #ffbd2e;
+    }
+
+    .mockup-dot.green {
+      background-color: #27c93f;
+    }
+
+    .mockup-chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-title {
+      font-size: 0.75rem;
+      font-family: var(--font-code);
+      color: var(--text-muted);
+    }
+
+    .mockup-badge {
+      font-size: 0.6rem;
+      font-family: var(--font-code);
+      padding: 0.15rem 0.4rem;
+      border-radius: 100px;
+      background: rgba(var(--accent-rgb), 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(var(--accent-rgb), 0.2);
+    }
+
+    .mockup-chart {
+      height: 80px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      position: relative;
+      margin: 0.5rem 0;
+    }
+
+    .chart-line {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      width: 100%;
+      height: 35px;
+      background: linear-gradient(to top, rgba(var(--accent-rgb), 0.1), transparent);
+      clip-path: polygon(0% 100%, 20% 40%, 40% 60%, 60% 10%, 80% 80%, 100% 30%, 100% 100%);
+      border-top: 2px solid var(--accent);
+    }
+
+    .chart-glow-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      bottom: 37px;
+      left: 60%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: beacon 2s infinite;
+    }
+
+    @keyframes beacon {
+      0% {
+        box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.8);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(var(--accent-rgb), 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0);
+      }
+    }
+
+    .mockup-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .mockup-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+
+    .item-icon {
+      font-size: 0.85rem;
+      color: var(--accent);
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: rgba(var(--accent-rgb), 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-text {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.7rem;
+    }
+
+    .item-name {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .item-status.success {
+      color: var(--accent);
+    }
+
+    .notification-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-warm);
+    }
+
+    .bell-pulse {
+      animation: swing 2s infinite ease-in-out;
+    }
+
+    @keyframes swing {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      15% {
+        transform: rotate(15deg);
+      }
+
+      30% {
+        transform: rotate(-15deg);
+      }
+
+      45% {
+        transform: rotate(10deg);
+      }
+
+      60% {
+        transform: rotate(-10deg);
+      }
+
+      75% {
+        transform: rotate(5deg);
+      }
+
+      90% {
+        transform: rotate(-5deg);
+      }
+    }
+
+    .notification-body {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    /* ----------------------------------------------------
+       SECTION: CONTACT
+       ---------------------------------------------------- */
+    .contact-section {
+      text-align: center;
+      padding: 10rem 2rem;
+    }
+
+    .contact-container {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .contact-tagline {
+      font-size: 3rem;
+      font-family: var(--font-display);
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .email-link {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--text-primary);
+      transition: var(--transition-fluid);
+      display: inline-block;
+    }
+
+    .email-link:hover {
+      color: var(--accent);
+      border-color: transparent;
+      text-shadow: 0 0 25px rgba(var(--accent-rgb), 0.4);
+      transform: translateY(-2px);
+    }
+
+    .social-grid {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.6rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      border-radius: 100px;
+      transition: var(--transition-fluid);
+    }
+
+    .social-btn i {
+      font-size: 1.1rem;
+      transition: var(--transition-snappy);
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.03);
+      box-shadow: 0 10px 25px rgba(var(--accent-rgb), 0.08);
+    }
+
+    .social-btn:hover i {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    /* ----------------------------------------------------
+       FOOTER
+       ---------------------------------------------------- */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #06080c;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: var(--font-body);
+      letter-spacing: 0.05em;
+    }
+
+    /* ----------------------------------------------------
+       RESPONSIVE BREAKPOINTS (Mobile-First)
+       ---------------------------------------------------- */
+    @media (max-width: 1023px) {
+      .hero-title {
+        font-size: 4rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+
+      .project-visual {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 2rem;
+      }
+
+      .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .timeline::before {
+        left: 15px;
+      }
+
+      .timeline-item {
+        padding-left: 40px;
+        margin-bottom: 3rem;
+      }
+
+      .timeline-dot {
+        left: 4px;
+        top: 6px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .timeline-dot::after {
+        width: 6px;
+        height: 6px;
+      }
+
+      .timeline-card {
+        padding: 1.5rem;
+      }
+
+      .timeline-degree {
+        font-size: 1.6rem;
+      }
+
+      .navbar {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .video-controls {
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .achievements-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-info {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .project-name {
+        font-size: 3rem;
+      }
+
+      .email-link {
+        font-size: 1.5rem;
+      }
+
+      .contact-tagline {
+        font-size: 2.2rem;
+      }
+
+      section {
+        padding: 5rem 1.5rem;
+      }
+    }
+
+    /* ----------------------------------------------------
+       CUSTOM AESTHETIC CURSOR
+       ---------------------------------------------------- */
+    @media (min-width: 769px) {
+      html, body, a, button, [role="button"], .btn, .nav-link, .stat-card, .skill-card, .achievement-card, .project-card, .logo {
+        cursor: none !important;
+      }
+
+      .custom-cursor, .custom-cursor-dot {
+        display: block;
+      }
+    }
+
+    .custom-cursor, .custom-cursor-dot {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: 1.5px solid var(--text-primary);
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate3d(-50%, -50%, 0);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s;
+      mix-blend-mode: difference;
+    }
+
+    .custom-cursor-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--text-primary);
+      border: none;
+      z-index: 10001;
+      transform: translate3d(-50%, -50%, 0);
+      mix-blend-mode: difference;
+      transition: opacity 0.3s;
+    }
+
+    .custom-cursor.hovered {
+      width: 46px;
+      height: 46px;
+      background-color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .custom-cursor-dot.hovered {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Custom Aesthetic Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-dot" id="customCursorDot"></div>
+
+  <!-- WebGL Splash Fluid Simulation Canvas Overlay -->
+  <div style="position: fixed; top: 0; left: 0; z-index: 40; pointer-events: none; width: 100vw; height: 100vh; overflow: hidden;">
+    <canvas id="fluid" style="width: 100%; height: 100%; display: block;"></canvas>
+  </div>
+
+  <!-- Filmic Grain SVG Overlay Filter -->
+  <svg class="film-grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.02 0" />
+    </filter>
+  </svg>
+
+  <!-- Subtle Scanline Grain Texture Overlay -->
+  <div class="scanlines"></div>
+
+  <!-- Header Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="logo" id="logo">
+        <span class="text-gradient">SHUBHAM S K</span><span>.</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Overlay Navigation -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-nav-links">
+      <a href="#about" class="mobile-nav-link">About</a>
+      <a href="#education" class="mobile-nav-link">Education</a>
+      <a href="#skills" class="mobile-nav-link">Skills</a>
+      <a href="#achievements" class="mobile-nav-link">Achievements</a>
+      <a href="#projects" class="mobile-nav-link">Projects</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+  </div>
+
+  <!-- HERO SECTION (Fullscreen Sticky, Video-Driven) -->
+  <section class="hero-section" id="hero">
+    <div class="hero-video-container">
+      <!-- Background Ambient Blur Video (scale + blur) -->
+      <video class="hero-video-bg" autoplay loop muted playsinline
+        poster="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1920&auto=format&fit=crop">
+        <!-- Main video source from Assets folder -->
+        <source src="Assets/Use_the_uploaded_image_as_the.mp4" type="video/mp4">
+      </video>
+      <!-- Foreground Primary Video Layer -->
+      <video class="hero-video-fg" autoplay loop muted playsinline
+        poster="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1920&auto=format&fit=crop">
+        <!-- Main video source from Assets folder -->
+        <source src="Assets/Use_the_uploaded_image_as_the.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Dark Gradient vignette overlays -->
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="glass-pill">
+          <span class="pulse-dot"></span>
+          Available for Opportunities
+        </span>
+      </div>
+      <h1 class="hero-title"><span class="text-gradient">Shubham S K</span></h1>
+      <h2 class="hero-subtitle">Full-Stack Developer &middot; UI/UX Enthusiast</h2>
+      <p class="hero-desc">Building premium web experiences at the intersection of design and engineering.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-filled">View My Work <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#" class="btn btn-ghost" onclick="alert('Resume download placeholder activated!'); return false;"><i
+            class="fa-solid fa-download"></i> Download Resume</a>
+      </div>
+    </div>
+
+    <!-- Floating Pill Video Controls -->
+    <div class="video-controls">
+      <div class="sound-badge" id="soundBadge">Tap for sound 🔊</div>
+      <button class="btn-mute" id="muteBtn" aria-label="Unmute Background Audio">
+        <i class="fa-solid fa-microphone-slash"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- CONTENT WRAPPER (Normal Scroll Flow covering Sticky Hero) -->
+  <div class="content-wrapper">
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="reveal scroll-reveal">
+      <h2 class="section-title">About</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I am a B.Tech Computer Science and Engineering student (class of 2028) with a deep interest in building
+            <strong>production-grade web solutions</strong>. I specialize in bridging the gap between clean back-end
+            architectures and fluid, pixel-perfect user interfaces.
+          </p>
+          <p>
+            My approach centers on <strong>high-fidelity aesthetic execution</strong> combined with optimal data
+            paradigms. I focus on developing clean, responsive layouts that feel premium, perform at speed, and deliver
+            rich user engagement through custom micro-interactions.
+          </p>
+          <p>
+            From deploying fully operational multi-role applications to designing interactive systems, I consistently
+            seek challenges that demand both logic and creative layout design.
+          </p>
+        </div>
+
+        <!-- Stylized Stat Grid -->
+        <div class="stat-grid">
+          <div class="stat-card glass">
+            <div class="stat-num">1</div>
+            <div class="stat-lbl">Major Production App</div>
+          </div>
+          <div class="stat-card glass">
+            <div class="stat-num">3+</div>
+            <div class="stat-lbl">System Roles Supported</div>
+          </div>
+          <div class="stat-card glass">
+            <div class="stat-num">2</div>
+            <div class="stat-lbl">SIH Problem Submissions</div>
+          </div>
+          <div class="stat-card glass">
+            <div class="stat-num">2024</div>
+            <div class="stat-lbl">Started B.Tech CSE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="reveal scroll-reveal">
+      <h2 class="section-title">Education</h2>
+      <div class="timeline">
+        
+        <!-- Milestone 3: B.Tech -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass">
+            <div class="timeline-meta">
+              <span class="timeline-period">2024 &mdash; 2028</span>
+              <span class="timeline-record">CGPA: 6.93</span>
+            </div>
+            <h3 class="timeline-degree">B.Tech in Computer Science &amp; Engineering</h3>
+            <h4 class="timeline-inst">NMAMIT, Nitte</h4>
+            <p class="timeline-desc">
+              Currently pursuing a B.Tech in Computer Science, actively exploring modern frontend frameworks, seamless animations, and scalable backend systems — committed to clean code, thoughtful UI/UX design, and continuous learning.
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 2: 12th Grade -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass">
+            <div class="timeline-meta">
+              <span class="timeline-period">Completed 2024</span>
+              <span class="timeline-record">Percentage: 91%</span>
+            </div>
+            <h3 class="timeline-degree">Pre-University Education (12th Grade)</h3>
+            <h4 class="timeline-inst">Excellent PU College, Moodubidire</h4>
+            <p class="timeline-desc">
+              Completed intensive Pre-University studies with excellent academic records, specializing in science and computing logic foundations.
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 1: 10th Grade -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card glass">
+            <div class="timeline-meta">
+              <span class="timeline-period">Completed 2021</span>
+              <span class="timeline-record">Percentage: 81.6%</span>
+            </div>
+            <h3 class="timeline-degree">Secondary School Certificate (10th Grade)</h3>
+            <h4 class="timeline-inst">Sharada Residential School, Udupi</h4>
+            <p class="timeline-desc">
+              Acquired foundational logic structures and baseline analytical sciences, sparking an early interest in computer science and quantitative problem solving.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TECH STACK SECTION -->
+    <section id="skills" class="reveal scroll-reveal">
+      <h2 class="section-title">Tech Stack</h2>
+      <div class="skills-container">
+        <!-- Languages -->
+        <div class="skills-group">
+          <h3 class="skills-group-title"><i class="fa-solid fa-code"></i> Languages</h3>
+          <div class="skills-grid">
+            <div class="skill-card glass"><i class="devicon-javascript-plain colored"></i> <span>JavaScript</span></div>
+            <div class="skill-card glass"><i class="devicon-typescript-plain colored"></i> <span>TypeScript</span></div>
+            <div class="skill-card glass"><i class="devicon-html5-plain colored"></i> <span>HTML5</span></div>
+            <div class="skill-card glass"><i class="devicon-css3-plain colored"></i> <span>CSS3</span></div>
+            <div class="skill-card glass"><i class="devicon-c-plain colored"></i> <span>C</span></div>
+            <div class="skill-card glass"><i class="devicon-python-plain colored"></i> <span>Python</span></div>
+          </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="skills-group">
+          <h3 class="skills-group-title"><i class="fa-solid fa-laptop-code"></i> Frontend</h3>
+          <div class="skills-grid">
+            <div class="skill-card glass"><i class="devicon-react-original colored"></i> <span>React.js</span></div>
+            <div class="skill-card glass"><i class="devicon-vitejs-plain colored"></i> <span>Vite</span></div>
+            <div class="skill-card glass"><i class="devicon-tailwindcss-original colored"></i> <span>Tailwind CSS</span>
+            </div>
+            <div class="skill-card glass"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-warm);"></i>
+              <span>Framer Motion</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skills-group">
+          <h3 class="skills-group-title"><i class="fa-solid fa-server"></i> Backend</h3>
+          <div class="skills-grid">
+            <div class="skill-card glass"><i class="devicon-nodejs-plain colored"></i> <span>Node.js</span></div>
+            <div class="skill-card glass"><i class="devicon-express-original"></i> <span>Express.js</span></div>
+          </div>
+        </div>
+
+        <!-- Databases -->
+        <div class="skills-group">
+          <h3 class="skills-group-title"><i class="fa-solid fa-database"></i> Databases</h3>
+          <div class="skills-grid">
+            <div class="skill-card glass"><i class="devicon-postgresql-plain colored"></i> <span>PostgreSQL</span></div>
+            <div class="skill-card glass"><i class="devicon-mongodb-plain colored"></i> <span>MongoDB</span></div>
+            <div class="skill-card glass"><i class="devicon-mysql-plain colored"></i> <span>MySQL</span></div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skills-group">
+          <h3 class="skills-group-title"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</h3>
+          <div class="skills-grid">
+            <div class="skill-card glass"><i class="devicon-git-plain colored"></i> <span>Git</span></div>
+            <div class="skill-card glass"><i class="devicon-github-original"></i> <span>GitHub</span></div>
+            <div class="skill-card glass"><i class="fa-solid fa-palette" style="color: var(--accent);"></i> <span>Canva</span>
+            </div>
+            <div class="skill-card glass"><i class="devicon-vitejs-plain colored"></i> <span>Vite</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS SECTION -->
+    <section id="achievements" class="reveal scroll-reveal">
+      <h2 class="section-title">Achievements</h2>
+      <div class="achievements-grid">
+        <!-- Hackathon -->
+        <div class="achievement-card glass">
+          <div class="achievement-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h3 class="achievement-title">Smart India Hackathon</h3>
+          <p class="achievement-desc">Selected and submitted 2 complex, real-world problem statements targeted at
+            software resource efficiency and process automation.</p>
+        </div>
+        <!-- Academics -->
+        <div class="achievement-card glass">
+          <div class="achievement-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3 class="achievement-title">B.Tech Computer Science</h3>
+          <p class="achievement-desc">Began higher-education journey in CSE (2024), focusing on advanced data
+            structures, systems analysis, and modern architectural principles.</p>
+        </div>
+        <!-- Software Engineering -->
+        <div class="achievement-card glass">
+          <div class="achievement-icon"><i class="fa-solid fa-cubes"></i></div>
+          <h3 class="achievement-title">Full-Stack Architect</h3>
+          <p class="achievement-desc">Architected, built, and shipped a live multi-tenant production app (Khaana)
+            serving custom role access models, real-time states, and transactions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="reveal scroll-reveal">
+      <h2 class="section-title">Featured Project</h2>
+      <div class="project-card glass">
+        <!-- Project Text and Spec -->
+        <div class="project-info">
+          <span class="project-eyebrow">Featured Showcase</span>
+          <h3 class="project-name">Khaana</h3>
+          <p class="project-desc">A premium, food delivery and restaurant management system built to connect customers with elite culinary establishments and optimize operational workflows.</p>
+
+          <div class="project-bullets">
+            <div class="bullet-row">
+              <i class="fa-solid fa-shield-halved bullet-icon"></i>
+              <span class="bullet-text"><strong>Elite Culinary Connections</strong>: Connects customers with elite restaurants through a premium, responsive UI designed with React.js, Vite, and Tailwind CSS.</span>
+            </div>
+            <div class="bullet-row">
+              <i class="fa-solid fa-user-lock bullet-icon"></i>
+              <span class="bullet-text"><strong>Role-Based Access Control</strong>: Implemented secure RBAC using JWT authentication and bcrypt password hashing, supporting Customer, Owner, and Admin roles.</span>
+            </div>
+            <div class="bullet-row">
+              <i class="fa-solid fa-credit-card bullet-icon"></i>
+              <span class="bullet-text"><strong>Seamless Checkout</strong>: Engineered OTP-based registration and account recovery, real-time cart management with dynamic pricing, and integrated Razorpay payment gateway.</span>
+            </div>
+            <div class="bullet-row">
+              <i class="fa-solid fa-envelope bullet-icon"></i>
+              <span class="bullet-text"><strong>Serverless Delivery Pipeline</strong>: Developed an automated PDF invoice generation pipeline (PDFKit) and serverless email delivery via Nodemailer and Vercel Serverless Functions.</span>
+            </div>
+            <div class="bullet-row">
+              <i class="fa-solid fa-chart-line bullet-icon"></i>
+              <span class="bullet-text"><strong>Owner Management Suites</strong>: Built a high-performance Owner Dashboard for menu management, dynamic order status tracking, and automated email confirmations.</span>
+            </div>
+            <div class="bullet-row">
+              <i class="fa-solid fa-server bullet-icon"></i>
+              <span class="bullet-text"><strong>Multi-Cloud Deployment</strong>: Shipped across Vercel (Frontend), Render (Backend REST API), and Supabase (PostgreSQL database) for premium scalability.</span>
+            </div>
+          </div>
+
+          <div class="project-tech">
+            <span class="tech-pill">React.js</span>
+            <span class="tech-pill">Vite</span>
+            <span class="tech-pill">Tailwind CSS</span>
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">Express.js</span>
+            <span class="tech-pill">PostgreSQL (Supabase)</span>
+            <span class="tech-pill">JWT</span>
+            <span class="tech-pill">Razorpay</span>
+            <span class="tech-pill">PDFKit</span>
+            <span class="tech-pill">Nodemailer</span>
+            <span class="tech-pill">Vercel</span>
+            <span class="tech-pill">Render</span>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <a href="https://khaana-food-delivery.vercel.app/" target="_blank" rel="noopener" class="btn btn-filled">Launch Live Demo <i
+                class="fa-solid fa-square-arrow-up-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Project Visual Showcase Placeholder -->
+        <div class="project-visual">
+          <div class="mockup-container">
+            <div class="mockup-bg-glow"></div>
+            <!-- Main Mockup Card -->
+            <div class="mockup-card glass">
+              <div class="mockup-header">
+                <span class="mockup-dot red"></span>
+                <span class="mockup-dot yellow"></span>
+                <span class="mockup-dot green"></span>
+              </div>
+              <div class="mockup-chart-header">
+                <span class="mockup-title">Khaana Analytics</span>
+                <span class="mockup-badge">LIVE</span>
+              </div>
+              <div class="mockup-chart">
+                <div class="chart-line"></div>
+                <div class="chart-glow-dot"></div>
+              </div>
+              <div class="mockup-list">
+                <div class="mockup-item">
+                  <div class="item-icon"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="item-text">
+                    <span class="item-name">Order #2041</span>
+                    <span class="item-status success">Dispatched</span>
+                  </div>
+                </div>
+                <div class="mockup-item">
+                  <div class="item-icon"><i class="fa-solid fa-credit-card"></i></div>
+                  <div class="item-text">
+                    <span class="item-name">Stripe Confirmed</span>
+                    <span class="item-status success">+$64.20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Secondary Overlapping Card -->
+            <div class="mockup-card-secondary glass">
+              <div class="notification-header">
+                <i class="fa-solid fa-bell bell-pulse"></i>
+                <span>Dispatch Alert</span>
+              </div>
+              <div class="notification-body">
+                Delivery associate is en route to gourmet prep kitchen...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="reveal scroll-reveal">
+      <div class="contact-container">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="contact-tagline">Let's build something remarkable.</p>
+        <a href="mailto:shubham.s.karabantnal97@gmail.com" class="email-link">shubham.s.karabantnal97@gmail.com</a>
+
+        <div class="social-grid">
+          <a href="https://www.linkedin.com/in/shubham-karbhantnal-b3ab63320?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="social-btn glass">
+            <i class="fa-brands fa-linkedin-in" style="color: #0077b5;"></i> LinkedIn
+          </a>
+          <a href="https://github.com/shubham-karabantnal" target="_blank" rel="noopener" class="social-btn glass">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+          <a href="https://www.instagram.com/shubham.karabantnal?igsh=ejFrb2RnZGg5YnNs" target="_blank" rel="noopener" class="social-btn glass">
+            <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>Designed & built by Shubham Karabantnal &middot; 2025</p>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVE LOGIC (VANILLA JS) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // 1. Page Load Animation Trigger
+      setTimeout(() => {
+        document.body.classList.add('hero-loaded');
+      }, 100);
+
+      // 2. Sticky Navbar Glass Effect on Scroll
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Logo Redirect to Home (Top of page)
+      const logoLink = document.getElementById('logo');
+      if (logoLink) {
+        logoLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          // Hide mobile menu if open
+          hamburger.classList.remove('active');
+          mobileOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      }
+
+      // 3. Hamburger Overlay Mobile Menu
+      const hamburger = document.getElementById('hamburger');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const mobileOverlayLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMenu() {
+        hamburger.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileOverlay.classList.contains('active') ? 'hidden' : '';
+      }
+
+      hamburger.addEventListener('click', toggleMenu);
+
+      mobileOverlayLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // 4. Double Video Audio Toggle System
+      const fgVideo = document.querySelector('.hero-video-fg');
+      const bgVideo = document.querySelector('.hero-video-bg');
+      const muteBtn = document.getElementById('muteBtn');
+      const soundBadge = document.getElementById('soundBadge');
+
+      let isMuted = true;
+      let userMuteStateBeforeScroll = true;
+
+      // Pulse fade in for audio helper badge after 2s
+      setTimeout(() => {
+        if (isMuted && soundBadge) {
+          soundBadge.classList.add('visible', 'pulse');
+        }
+      }, 2000);
+
+      // Auto-dismiss audio helper badge after 8s total
+      setTimeout(() => {
+        if (soundBadge) {
+          soundBadge.classList.remove('visible');
+        }
+      }, 10000);
+
+      function toggleMute() {
+        isMuted = !isMuted;
+
+        fgVideo.muted = isMuted;
+        bgVideo.muted = isMuted;
+
+        // Ensure playback continues when unmuted
+        if (!isMuted) {
+          fgVideo.play().catch(e => console.log(e));
+          bgVideo.play().catch(e => console.log(e));
+        }
+
+        // Synchronize microphone icons
+        if (isMuted) {
+          muteBtn.innerHTML = '<i class="fa-solid fa-microphone-slash"></i>';
+          muteBtn.setAttribute('aria-label', 'Unmute Background Audio');
+        } else {
+          muteBtn.innerHTML = '<i class="fa-solid fa-microphone"></i>';
+          muteBtn.setAttribute('aria-label', 'Mute Background Audio');
+        }
+
+        // Instantly hide warning badge when unmuted/clicked
+        if (soundBadge) {
+          soundBadge.classList.remove('visible');
+        }
+
+        userMuteStateBeforeScroll = isMuted;
+      }
+
+      muteBtn.addEventListener('click', toggleMute);
+
+      // 5. Scroll-To-Mute Intersection Observer
+      const heroSection = document.getElementById('hero');
+      const heroAudioObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // When hero is out of view (threshold 0.2, meaning less than 20% visible)
+          if (!entry.isIntersecting) {
+            // Mute both feeds automatically to conserve processor memory & background noise
+            fgVideo.muted = true;
+            bgVideo.muted = true;
+          } else {
+            // Restore previous user mute state when returning to focus
+            fgVideo.muted = userMuteStateBeforeScroll;
+            bgVideo.muted = userMuteStateBeforeScroll;
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+
+      heroAudioObserver.observe(heroSection);
+
+      // 6. Intersection Observer for Scroll reveals (when scroll-timeline is unsupported)
+      if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, {
+          threshold: 0.15
+        });
+
+        revealElements.forEach(el => {
+          revealObserver.observe(el);
+        });
+      } else {
+        // Native scroll-timeline reveal supported - remove initial reveal class offset styles
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.classList.add('active');
+        });
+      }
+
+      // 7. Custom Aesthetic Cursor Follower (LERP)
+      const cursor = document.getElementById('customCursor');
+      const cursorDot = document.getElementById('customCursorDot');
+      
+      let mouseX = 0;
+      let mouseY = 0;
+      let cursorX = 0;
+      let cursorY = 0;
+      
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Custom dot position instantly mapped
+        cursorDot.style.left = mouseX + 'px';
+        cursorDot.style.top = mouseY + 'px';
+      });
+      
+      // RequestAnimationFrame 60fps render
+      function animateCursor() {
+        const lerpFactor = 0.15;
+        cursorX += (mouseX - cursorX) * lerpFactor;
+        cursorY += (mouseY - cursorY) * lerpFactor;
+        
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+      }
+      requestAnimationFrame(animateCursor);
+      
+      // Dynamic hovered states binding
+      const interactives = document.querySelectorAll('a, button, .btn, .stat-card, .skill-card, .achievement-card, .project-card, .logo, .logo-container, .timeline-card, .hamburger, .social-btn');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('hovered');
+          cursorDot.classList.add('hovered');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('hovered');
+          cursorDot.classList.remove('hovered');
+        });
+      });
+
+      // 8. Custom WebGL SplashCursor Fluid Simulation Component
+      (function initSplashCursor() {
+        const canvas = document.getElementById('fluid');
+        if (!canvas) return;
+
+        let isActive = true;
+
+        function pointerPrototype() {
+          this.id = -1;
+          this.texcoordX = 0;
+          this.texcoordY = 0;
+          this.prevTexcoordX = 0;
+          this.prevTexcoordY = 0;
+          this.deltaX = 0;
+          this.deltaY = 0;
+          this.down = false;
+          this.moved = false;
+          this.color = [0, 0, 0];
+        }
+
+        let config = {
+          SIM_RESOLUTION: 128,
+          DYE_RESOLUTION: 1024,
+          CAPTURE_RESOLUTION: 512,
+          DENSITY_DISSIPATION: 3.5,
+          VELOCITY_DISSIPATION: 2.0,
+          PRESSURE: 0.1,
+          PRESSURE_ITERATIONS: 20,
+          CURL: 3.0,
+          SPLAT_RADIUS: 0.25,
+          SPLAT_FORCE: 6000,
+          SHADING: true,
+          COLOR_UPDATE_SPEED: 10,
+          PAUSED: false,
+          BACK_COLOR: { r: 0, g: 0, b: 0 },
+          TRANSPARENT: true,
+          RAINBOW_MODE: false,
+          COLOR: '#00F0FF'
+        };
+
+        let pointers = [new pointerPrototype()];
+
+        const { gl, ext } = getWebGLContext(canvas);
+        if (!ext.supportLinearFiltering) {
+          config.DYE_RESOLUTION = 256;
+          config.SHADING = false;
+        }
+
+        function getWebGLContext(canvas) {
+          const params = {
+            alpha: true,
+            depth: false,
+            stencil: false,
+            antialias: false,
+            preserveDrawingBuffer: false
+          };
+          let gl = canvas.getContext('webgl2', params);
+          const isWebGL2 = !!gl;
+          if (!isWebGL2) gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
+
+          let halfFloat;
+          let supportLinearFiltering;
+          if (isWebGL2) {
+            gl.getExtension('EXT_color_buffer_float');
+            supportLinearFiltering = gl.getExtension('OES_texture_float_linear');
+          } else {
+            halfFloat = gl.getExtension('OES_texture_half_float');
+            supportLinearFiltering = gl.getExtension('OES_texture_half_float_linear');
+          }
+          gl.clearColor(0.0, 0.0, 0.0, 0.0);
+
+          const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : halfFloat && halfFloat.HALF_FLOAT_OES;
+          let formatRGBA;
+          let formatRG;
+          let formatR;
+
+          if (isWebGL2) {
+            formatRGBA = getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, halfFloatTexType);
+            formatRG = getSupportedFormat(gl, gl.RG16F, gl.RG, halfFloatTexType);
+            formatR = getSupportedFormat(gl, gl.R16F, gl.RED, halfFloatTexType);
+          } else {
+            formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+            formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+            formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+          }
+
+          return {
+            gl,
+            ext: {
+              formatRGBA,
+              formatRG,
+              formatR,
+              halfFloatTexType,
+              supportLinearFiltering
+            }
+          };
+        }
+
+        function getSupportedFormat(gl, internalFormat, format, type) {
+          if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
+            switch (internalFormat) {
+              case gl.R16F:
+                return getSupportedFormat(gl, gl.RG16F, gl.RG, type);
+              case gl.RG16F:
+                return getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, type);
+              default:
+                return null;
+            }
+          }
+          return { internalFormat, format };
+        }
+
+        function supportRenderTextureFormat(gl, internalFormat, format, type) {
+          const texture = gl.createTexture();
+          gl.bindTexture(gl.TEXTURE_2D, texture);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
+          const fbo = gl.createFramebuffer();
+          gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+          gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+          const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+          return status === gl.FRAMEBUFFER_COMPLETE;
+        }
+
+        class Material {
+          constructor(vertexShader, fragmentShaderSource) {
+            this.vertexShader = vertexShader;
+            this.fragmentShaderSource = fragmentShaderSource;
+            this.programs = [];
+            this.activeProgram = null;
+            this.uniforms = [];
+          }
+          setKeywords(keywords) {
+            let hash = 0;
+            for (let i = 0; i < keywords.length; i++) hash += hashCode(keywords[i]);
+            let program = this.programs[hash];
+            if (program == null) {
+              let fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+              program = createProgram(this.vertexShader, fragmentShader);
+              this.programs[hash] = program;
+            }
+            if (program === this.activeProgram) return;
+            this.uniforms = getUniforms(program);
+            this.activeProgram = program;
+          }
+          bind() {
+            gl.useProgram(this.activeProgram);
+          }
+        }
+
+        class Program {
+          constructor(vertexShader, fragmentShader) {
+            this.uniforms = {};
+            this.program = createProgram(vertexShader, fragmentShader);
+            this.uniforms = getUniforms(this.program);
+          }
+          bind() {
+            gl.useProgram(this.program);
+          }
+        }
+
+        function createProgram(vertexShader, fragmentShader) {
+          let program = gl.createProgram();
+          gl.attachShader(program, vertexShader);
+          gl.attachShader(program, fragmentShader);
+          gl.linkProgram(program);
+          if (!gl.getProgramParameter(program, gl.LINK_STATUS)) console.trace(gl.getProgramInfoLog(program));
+          return program;
+        }
+
+        function getUniforms(program) {
+          let uniforms = [];
+          let uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+          for (let i = 0; i < uniformCount; i++) {
+            let uniformName = gl.getActiveUniform(program, i).name;
+            uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+          }
+          return uniforms;
+        }
+
+        function compileShader(type, source, keywords) {
+          source = addKeywords(source, keywords);
+          const shader = gl.createShader(type);
+          gl.shaderSource(shader, source);
+          gl.compileShader(shader);
+          if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) console.trace(gl.getShaderInfoLog(shader));
+          return shader;
+        }
+
+        function addKeywords(source, keywords) {
+          if (!keywords) return source;
+          let keywordsString = '';
+          keywords.forEach(keyword => {
+            keywordsString += '#define ' + keyword + '\n';
+          });
+          return keywordsString + source;
+        }
+
+        const baseVertexShader = compileShader(
+          gl.VERTEX_SHADER,
+          `
+            precision highp float;
+            attribute vec2 aPosition;
+            varying vec2 vUv;
+            varying vec2 vL;
+            varying vec2 vR;
+            varying vec2 vT;
+            varying vec2 vB;
+            uniform vec2 texelSize;
+
+            void main () {
+                vUv = aPosition * 0.5 + 0.5;
+                vL = vUv - vec2(texelSize.x, 0.0);
+                vR = vUv + vec2(texelSize.x, 0.0);
+                vT = vUv + vec2(0.0, texelSize.y);
+                vB = vUv - vec2(0.0, texelSize.y);
+                gl_Position = vec4(aPosition, 0.0, 1.0);
+            }
+          `
+        );
+
+        const copyShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision mediump float;
+            precision mediump sampler2D;
+            varying highp vec2 vUv;
+            uniform sampler2D uTexture;
+
+            void main () {
+                gl_FragColor = texture2D(uTexture, vUv);
+            }
+          `
+        );
+
+        const clearShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision mediump float;
+            precision mediump sampler2D;
+            varying highp vec2 vUv;
+            uniform sampler2D uTexture;
+            uniform float value;
+
+            void main () {
+                gl_FragColor = value * texture2D(uTexture, vUv);
+            }
+          `
+        );
+
+        const displayShaderSource = `
+          precision highp float;
+          precision highp sampler2D;
+          varying vec2 vUv;
+          varying vec2 vL;
+          varying vec2 vR;
+          varying vec2 vT;
+          varying vec2 vB;
+          uniform sampler2D uTexture;
+          uniform sampler2D uDithering;
+          uniform vec2 ditherScale;
+          uniform vec2 texelSize;
+
+          vec3 linearToGamma (vec3 color) {
+              color = max(color, vec3(0));
+              return max(1.055 * pow(color, vec3(0.416666667)) - 0.055, vec3(0));
+          }
+
+          void main () {
+              vec3 c = texture2D(uTexture, vUv).rgb;
+              #ifdef SHADING
+                  vec3 lc = texture2D(uTexture, vL).rgb;
+                  vec3 rc = texture2D(uTexture, vR).rgb;
+                  vec3 tc = texture2D(uTexture, vT).rgb;
+                  vec3 bc = texture2D(uTexture, vB).rgb;
+
+                  float dx = length(rc) - length(lc);
+                  float dy = length(tc) - length(bc);
+
+                  vec3 n = normalize(vec3(dx, dy, length(texelSize)));
+                  vec3 l = vec3(0.0, 0.0, 1.0);
+
+                  float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
+                  c *= diffuse;
+              #endif
+
+              float a = max(c.r, max(c.g, c.b));
+              gl_FragColor = vec4(c, a);
+          }
+        `;
+
+        const splatShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision highp float;
+            precision highp sampler2D;
+            varying vec2 vUv;
+            uniform sampler2D uTarget;
+            uniform float aspectRatio;
+            uniform vec3 color;
+            uniform vec2 point;
+            uniform float radius;
+
+            void main () {
+                vec2 p = vUv - point.xy;
+                p.x *= aspectRatio;
+                vec3 splat = exp(-dot(p, p) / radius) * color;
+                vec3 base = texture2D(uTarget, vUv).xyz;
+                gl_FragColor = vec4(base + splat, 1.0);
+            }
+          `
+        );
+
+        const advectionShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision highp float;
+            precision highp sampler2D;
+            varying vec2 vUv;
+            uniform sampler2D uVelocity;
+            uniform sampler2D uSource;
+            uniform vec2 texelSize;
+            uniform vec2 dyeTexelSize;
+            uniform float dt;
+            uniform float dissipation;
+
+            vec4 bilerp (sampler2D sam, vec2 uv, vec2 tsize) {
+                vec2 st = uv / tsize - 0.5;
+                vec2 iuv = floor(st);
+                vec2 fuv = fract(st);
+
+                vec4 a = texture2D(sam, (iuv + vec2(0.5, 0.5)) * tsize);
+                vec4 b = texture2D(sam, (iuv + vec2(1.5, 0.5)) * tsize);
+                vec4 c = texture2D(sam, (iuv + vec2(0.5, 1.5)) * tsize);
+                vec4 d = texture2D(sam, (iuv + vec2(1.5, 1.5)) * tsize);
+
+                return mix(mix(a, b, fuv.x), mix(c, d, fuv.x), fuv.y);
+            }
+
+            void main () {
+                #ifdef MANUAL_FILTERING
+                    vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
+                    vec4 result = bilerp(uSource, coord, dyeTexelSize);
+                #else
+                    vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
+                    vec4 result = texture2D(uSource, coord);
+                #endif
+                float decay = 1.0 + dissipation * dt;
+                gl_FragColor = result / decay;
+            }
+          `,
+          ext.supportLinearFiltering ? null : ['MANUAL_FILTERING']
+        );
+
+        const divergenceShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision mediump float;
+            precision mediump sampler2D;
+            varying highp vec2 vUv;
+            varying highp vec2 vL;
+            varying highp vec2 vR;
+            varying highp vec2 vT;
+            varying highp vec2 vB;
+            uniform sampler2D uVelocity;
+
+            void main () {
+                float L = texture2D(uVelocity, vL).x;
+                float R = texture2D(uVelocity, vR).x;
+                float T = texture2D(uVelocity, vT).y;
+                float B = texture2D(uVelocity, vB).y;
+
+                vec2 C = texture2D(uVelocity, vUv).xy;
+                if (vL.x < 0.0) { L = -C.x; }
+                if (vR.x > 1.0) { R = -C.x; }
+                if (vT.y > 1.0) { T = -C.y; }
+                if (vB.y < 0.0) { B = -C.y; }
+
+                float div = 0.5 * (R - L + T - B);
+                gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
+            }
+          `
+        );
+
+        const curlShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision mediump float;
+            precision mediump sampler2D;
+            varying highp vec2 vUv;
+            varying highp vec2 vL;
+            varying highp vec2 vR;
+            varying highp vec2 vT;
+            varying highp vec2 vB;
+            uniform sampler2D uVelocity;
+
+            void main () {
+                float L = texture2D(uVelocity, vL).y;
+                float R = texture2D(uVelocity, vR).y;
+                float T = texture2D(uVelocity, vT).x;
+                float B = texture2D(uVelocity, vB).x;
+                float vorticity = R - L - T + B;
+                gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
+            }
+          `
+        );
+
+        const vorticityShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision highp float;
+            precision highp sampler2D;
+            varying vec2 vUv;
+            varying vec2 vL;
+            varying vec2 vR;
+            varying vec2 vT;
+            varying vec2 vB;
+            uniform sampler2D uVelocity;
+            uniform sampler2D uCurl;
+            uniform float curl;
+            uniform float dt;
+
+            void main () {
+                float L = texture2D(uCurl, vL).x;
+                float R = texture2D(uCurl, vR).x;
+                float T = texture2D(uCurl, vT).x;
+                float B = texture2D(uCurl, vB).x;
+                float C = texture2D(uCurl, vUv).x;
+
+                vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L));
+                force /= length(force) + 0.0001;
+                force *= curl * C;
+                force.y *= -1.0;
+
+                vec2 velocity = texture2D(uVelocity, vUv).xy;
+                velocity += force * dt;
+                velocity = min(max(velocity, -1000.0), 1000.0);
+                gl_FragColor = vec4(velocity, 0.0, 1.0);
+            }
+          `
+        );
+
+        const pressureShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision mediump float;
+            precision mediump sampler2D;
+            varying highp vec2 vUv;
+            varying highp vec2 vL;
+            varying highp vec2 vR;
+            varying highp vec2 vT;
+            varying highp vec2 vB;
+            uniform sampler2D uPressure;
+            uniform sampler2D uDivergence;
+
+            void main () {
+                float L = texture2D(uPressure, vL).x;
+                float R = texture2D(uPressure, vR).x;
+                float T = texture2D(uPressure, vT).x;
+                float B = texture2D(uPressure, vB).x;
+                float C = texture2D(uPressure, vUv).x;
+                float divergence = texture2D(uDivergence, vUv).x;
+                float pressure = (L + R + B + T - divergence) * 0.25;
+                gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
+            }
+          `
+        );
+
+        const gradientSubtractShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          `
+            precision mediump float;
+            precision mediump sampler2D;
+            varying highp vec2 vUv;
+            varying highp vec2 vL;
+            varying highp vec2 vR;
+            varying highp vec2 vT;
+            varying highp vec2 vB;
+            uniform sampler2D uPressure;
+            uniform sampler2D uVelocity;
+
+            void main () {
+                float L = texture2D(uPressure, vL).x;
+                float R = texture2D(uPressure, vR).x;
+                float T = texture2D(uPressure, vT).x;
+                float B = texture2D(uPressure, vB).x;
+                vec2 velocity = texture2D(uVelocity, vUv).xy;
+                velocity.xy -= vec2(R - L, T - B);
+                gl_FragColor = vec4(velocity, 0.0, 1.0);
+            }
+          `
+        );
+
+        const blit = (() => {
+          gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+          gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+          gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+          gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
+          gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+          gl.enableVertexAttribArray(0);
+          return (target, clear = false) => {
+            if (target == null) {
+              gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+              gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+            } else {
+              gl.viewport(0, 0, target.width, target.height);
+              gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+            }
+            if (clear) {
+              gl.clearColor(0.0, 0.0, 0.0, 0.0);
+              gl.clear(gl.COLOR_BUFFER_BIT);
+            }
+            gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+          };
+        })();
+
+        let dye, velocity, divergence, curl, pressure;
+
+        const copyProgram = new Program(baseVertexShader, copyShader);
+        const clearProgram = new Program(baseVertexShader, clearShader);
+        const splatProgram = new Program(baseVertexShader, splatShader);
+        const advectionProgram = new Program(baseVertexShader, advectionShader);
+        const divergenceProgram = new Program(baseVertexShader, divergenceShader);
+        const curlProgram = new Program(baseVertexShader, curlShader);
+        const vorticityProgram = new Program(baseVertexShader, vorticityShader);
+        const pressureProgram = new Program(baseVertexShader, pressureShader);
+        const gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
+        const displayMaterial = new Material(baseVertexShader, displayShaderSource);
+
+        function initFramebuffers() {
+          let simRes = getResolution(config.SIM_RESOLUTION);
+          let dyeRes = getResolution(config.DYE_RESOLUTION);
+          const texType = ext.halfFloatTexType;
+          const rgba = ext.formatRGBA;
+          const rg = ext.formatRG;
+          const r = ext.formatR;
+          const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
+          gl.disable(gl.BLEND);
+
+          if (!dye)
+            dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+          else
+            dye = resizeDoubleFBO(dye, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+
+          if (!velocity)
+            velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+          else
+            velocity = resizeDoubleFBO(
+              velocity,
+              simRes.width,
+              simRes.height,
+              rg.internalFormat,
+              rg.format,
+              texType,
+              filtering
+            );
+
+          divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+          curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+          pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        }
+
+        function createFBO(w, h, internalFormat, format, type, param) {
+          gl.activeTexture(gl.TEXTURE0);
+          let texture = gl.createTexture();
+          gl.bindTexture(gl.TEXTURE_2D, texture);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
+
+          let fbo = gl.createFramebuffer();
+          gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+          gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+          gl.viewport(0, 0, w, h);
+          gl.clear(gl.COLOR_BUFFER_BIT);
+
+          let texelSizeX = 1.0 / w;
+          let texelSizeY = 1.0 / h;
+          return {
+            texture,
+            fbo,
+            width: w,
+            height: h,
+            texelSizeX,
+            texelSizeY,
+            attach(id) {
+              gl.activeTexture(gl.TEXTURE0 + id);
+              gl.bindTexture(gl.TEXTURE_2D, texture);
+              return id;
+            }
+          };
+        }
+
+        function createDoubleFBO(w, h, internalFormat, format, type, param) {
+          let fbo1 = createFBO(w, h, internalFormat, format, type, param);
+          let fbo2 = createFBO(w, h, internalFormat, format, type, param);
+          return {
+            width: w,
+            height: h,
+            texelSizeX: fbo1.texelSizeX,
+            texelSizeY: fbo1.texelSizeY,
+            get read() {
+              return fbo1;
+            },
+            set read(value) {
+              fbo1 = value;
+            },
+            get write() {
+              return fbo2;
+            },
+            set write(value) {
+              fbo2 = value;
+            },
+            swap() {
+              let temp = fbo1;
+              fbo1 = fbo2;
+              fbo2 = temp;
+            }
+          };
+        }
+
+        function resizeFBO(target, w, h, internalFormat, format, type, param) {
+          let newFBO = createFBO(w, h, internalFormat, format, type, param);
+          copyProgram.bind();
+          gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
+          blit(newFBO);
+          return newFBO;
+        }
+
+        function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
+          if (target.width === w && target.height === h) return target;
+          target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+          target.write = createFBO(w, h, internalFormat, format, type, param);
+          target.width = w;
+          target.height = h;
+          target.texelSizeX = 1.0 / w;
+          target.texelSizeY = 1.0 / h;
+          return target;
+        }
+
+        function updateKeywords() {
+          let displayKeywords = [];
+          if (config.SHADING) displayKeywords.push('SHADING');
+          displayMaterial.setKeywords(displayKeywords);
+        }
+
+        updateKeywords();
+        initFramebuffers();
+        let lastUpdateTime = Date.now();
+        let colorUpdateTimer = 0.0;
+
+        function updateFrame() {
+          if (!isActive) return;
+          const dt = calcDeltaTime();
+          if (resizeCanvas()) initFramebuffers();
+          updateColors(dt);
+          applyInputs();
+          step(dt);
+          render(null);
+          requestAnimationFrame(updateFrame);
+        }
+
+        function calcDeltaTime() {
+          let now = Date.now();
+          let dt = (now - lastUpdateTime) / 1000;
+          dt = Math.min(dt, 0.016666);
+          lastUpdateTime = now;
+          return dt;
+        }
+
+        function resizeCanvas() {
+          let width = scaleByPixelRatio(canvas.clientWidth);
+          let height = scaleByPixelRatio(canvas.clientHeight);
+          if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+            return true;
+          }
+          return false;
+        }
+
+        function updateColors(dt) {
+          colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
+          if (colorUpdateTimer >= 1) {
+            colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
+            pointers.forEach(p => {
+              p.color = generateColor();
+            });
+          }
+        }
+
+        function applyInputs() {
+          pointers.forEach(p => {
+            if (p.moved) {
+              p.moved = false;
+              splatPointer(p);
+            }
+          });
+        }
+
+        function step(dt) {
+          gl.disable(gl.BLEND);
+          curlProgram.bind();
+          gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+          gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+          blit(curl);
+
+          vorticityProgram.bind();
+          gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+          gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
+          gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
+          gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
+          gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+          blit(velocity.write);
+          velocity.swap();
+
+          divergenceProgram.bind();
+          gl.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+          gl.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.read.attach(0));
+          blit(divergence);
+
+          clearProgram.bind();
+          gl.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
+          gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
+          blit(pressure.write);
+          pressure.swap();
+
+          pressureProgram.bind();
+          gl.uniform2f(pressureProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+          gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
+          for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
+            gl.uniform1i(pressureProgram.uniforms.uPressure, pressure.read.attach(1));
+            blit(pressure.write);
+            pressure.swap();
+          }
+
+          gradienSubtractProgram.bind();
+          gl.uniform2f(gradienSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+          gl.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
+          gl.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
+          blit(velocity.write);
+          velocity.swap();
+
+          advectionProgram.bind();
+          gl.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+          if (!ext.supportLinearFiltering)
+            gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
+          let velocityId = velocity.read.attach(0);
+          gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
+          gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
+          gl.uniform1f(advectionProgram.uniforms.dt, dt);
+          gl.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
+          blit(velocity.write);
+          velocity.swap();
+
+          if (!ext.supportLinearFiltering)
+            gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, dye.texelSizeX, dye.texelSizeY);
+          gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read.attach(0));
+          gl.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
+          gl.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
+          blit(dye.write);
+          dye.swap();
+        }
+
+        function render(target) {
+          gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+          gl.enable(gl.BLEND);
+          drawDisplay(target);
+        }
+
+        function drawDisplay(target) {
+          let width = target == null ? gl.drawingBufferWidth : target.width;
+          let height = target == null ? gl.drawingBufferHeight : target.height;
+          displayMaterial.bind();
+          if (config.SHADING) gl.uniform2f(displayMaterial.uniforms.texelSize, 1.0 / width, 1.0 / height);
+          gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
+          blit(target);
+        }
+
+        function splatPointer(pointer) {
+          let dx = pointer.deltaX * config.SPLAT_FORCE;
+          let dy = pointer.deltaY * config.SPLAT_FORCE;
+          splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
+        }
+
+        function clickSplat(pointer) {
+          const color = generateColor();
+          color.r *= 10.0;
+          color.g *= 10.0;
+          color.b *= 10.0;
+          let dx = 10 * (Math.random() - 0.5);
+          let dy = 30 * (Math.random() - 0.5);
+          splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
+        }
+
+        function splat(x, y, dx, dy, color) {
+          splatProgram.bind();
+          gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
+          gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
+          gl.uniform2f(splatProgram.uniforms.point, x, y);
+          gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0.0);
+          gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100.0));
+          blit(velocity.write);
+          velocity.swap();
+
+          gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
+          gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
+          blit(dye.write);
+          dye.swap();
+        }
+
+        function correctRadius(radius) {
+          let aspectRatio = canvas.width / canvas.height;
+          if (aspectRatio > 1) radius *= aspectRatio;
+          return radius;
+        }
+
+        function updatePointerDownData(pointer, id, posX, posY) {
+          pointer.id = id;
+          pointer.down = true;
+          pointer.moved = false;
+          pointer.texcoordX = posX / canvas.width;
+          pointer.texcoordY = 1.0 - posY / canvas.height;
+          pointer.prevTexcoordX = pointer.texcoordX;
+          pointer.prevTexcoordY = pointer.texcoordY;
+          pointer.deltaX = 0;
+          pointer.deltaY = 0;
+          pointer.color = generateColor();
+        }
+
+        function updatePointerMoveData(pointer, posX, posY, color) {
+          pointer.prevTexcoordX = pointer.texcoordX;
+          pointer.prevTexcoordY = pointer.texcoordY;
+          pointer.texcoordX = posX / canvas.width;
+          pointer.texcoordY = 1.0 - posY / canvas.height;
+          pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+          pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+          pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+          pointer.color = color;
+        }
+
+        function updatePointerUpData(pointer) {
+          pointer.down = false;
+        }
+
+        function correctDeltaX(delta) {
+          let aspectRatio = canvas.width / canvas.height;
+          if (aspectRatio < 1) delta *= aspectRatio;
+          return delta;
+        }
+
+        function correctDeltaY(delta) {
+          let aspectRatio = canvas.width / canvas.height;
+          if (aspectRatio > 1) delta /= aspectRatio;
+          return delta;
+        }
+
+        function hexToRGB(hex) {
+          let val = hex.replace('#', '');
+          if (val.length === 3) val = val[0] + val[0] + val[1] + val[1] + val[2] + val[2];
+          const r = parseInt(val.slice(0, 2), 16) / 255;
+          const g = parseInt(val.slice(2, 4), 16) / 255;
+          const b = parseInt(val.slice(4, 6), 16) / 255;
+          return { r: r * 0.15, g: g * 0.15, b: b * 0.15 };
+        }
+
+        function generateColor() {
+          const brandColors = ['#00F0FF', '#FF2E93'];
+          const chosenHex = brandColors[Math.floor(Math.random() * brandColors.length)];
+          return hexToRGB(chosenHex);
+        }
+
+        function wrap(value, min, max) {
+          const range = max - min;
+          if (range === 0) return min;
+          return ((value - min) % range) + min;
+        }
+
+        function getResolution(resolution) {
+          let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+          if (aspectRatio < 1) aspectRatio = 1.0 / aspectRatio;
+          const min = Math.round(resolution);
+          const max = Math.round(resolution * aspectRatio);
+          if (gl.drawingBufferWidth > gl.drawingBufferHeight) return { width: max, height: min };
+          else return { width: min, height: max };
+        }
+
+        function scaleByPixelRatio(input) {
+          const pixelRatio = window.devicePixelRatio || 1;
+          return Math.floor(input * pixelRatio);
+        }
+
+        function hashCode(s) {
+          if (s.length === 0) return 0;
+          let hash = 0;
+          for (let i = 0; i < s.length; i++) {
+            hash = (hash << 5) - hash + s.charCodeAt(i);
+            hash |= 0;
+          }
+          return hash;
+        }
+
+        // Event handlers
+        function handleMouseDown(e) {
+          let pointer = pointers[0];
+          let posX = scaleByPixelRatio(e.clientX);
+          let posY = scaleByPixelRatio(e.clientY);
+          updatePointerDownData(pointer, -1, posX, posY);
+          clickSplat(pointer);
+        }
+
+        let firstMouseMoveHandled = false;
+        function handleMouseMove(e) {
+          let pointer = pointers[0];
+          let posX = scaleByPixelRatio(e.clientX);
+          let posY = scaleByPixelRatio(e.clientY);
+          if (!firstMouseMoveHandled) {
+            let color = generateColor();
+            updatePointerMoveData(pointer, posX, posY, color);
+            firstMouseMoveHandled = true;
+          } else {
+            updatePointerMoveData(pointer, posX, posY, pointer.color);
+          }
+        }
+
+        function handleTouchStart(e) {
+          const touches = e.targetTouches;
+          let pointer = pointers[0];
+          for (let i = 0; i < touches.length; i++) {
+            let posX = scaleByPixelRatio(touches[i].clientX);
+            let posY = scaleByPixelRatio(touches[i].clientY);
+            updatePointerDownData(pointer, touches[i].identifier, posX, posY);
+          }
+        }
+
+        function handleTouchMove(e) {
+          const touches = e.targetTouches;
+          let pointer = pointers[0];
+          for (let i = 0; i < touches.length; i++) {
+            let posX = scaleByPixelRatio(touches[i].clientX);
+            let posY = scaleByPixelRatio(touches[i].clientY);
+            updatePointerMoveData(pointer, posX, posY, pointer.color);
+          }
+        }
+
+        function handleTouchEnd(e) {
+          const touches = e.changedTouches;
+          let pointer = pointers[0];
+          for (let i = 0; i < touches.length; i++) {
+            updatePointerUpData(pointer);
+          }
+        }
+
+        window.addEventListener('mousedown', handleMouseDown);
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        window.addEventListener('touchend', handleTouchEnd);
+
+        updateFrame();
+      })();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "shubham-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Luxury Dark Cinematic portfolio website for Shubham S Karabantnal",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
