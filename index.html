@@ -3172,23 +3172,23 @@
         });
       }
 
-      // 5. Scroll-To-Mute Intersection Observer
+      // 5. Scroll-To-Mute Intersection Observer (snappy mute as soon as user begins scrolling away)
       const heroSection = document.getElementById('hero');
       const heroAudioObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          // When hero is out of view (threshold 0.2, meaning less than 20% visible)
+          // Snappy mute: when hero is even slightly scrolled out of full focus (less than 95% visible)
           if (!entry.isIntersecting) {
             // Mute both feeds automatically to conserve processor memory & background noise
             fgVideo.muted = true;
             bgVideo.muted = true;
           } else {
-            // Restore previous user mute state when returning to focus
+            // Restore previous user mute state when returning to full focus at the top
             fgVideo.muted = userMuteStateBeforeScroll;
             bgVideo.muted = true; // Keep background video permanently muted to prevent echoing
           }
         });
       }, {
-        threshold: 0.2
+        threshold: 0.95
       });
 
       heroAudioObserver.observe(heroSection);
