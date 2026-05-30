@@ -3172,26 +3172,18 @@
         });
       }
 
-      // 5. Scroll-To-Mute Intersection Observer (snappy mute as soon as user begins scrolling away)
-      const heroSection = document.getElementById('hero');
-      const heroAudioObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          // Snappy mute: when hero is even slightly scrolled out of full focus (less than 95% visible)
-          if (!entry.isIntersecting) {
-            // Mute both feeds automatically to conserve processor memory & background noise
-            fgVideo.muted = true;
-            bgVideo.muted = true;
-          } else {
-            // Restore previous user mute state when returning to full focus at the top
-            fgVideo.muted = userMuteStateBeforeScroll;
-            bgVideo.muted = true; // Keep background video permanently muted to prevent echoing
-          }
-        });
-      }, {
-        threshold: 0.95
-      });
-
-      heroAudioObserver.observe(heroSection);
+      // 5. Scroll-To-Mute Scroll Listener (Snappy mute as soon as user scrolls away from top hero)
+      window.addEventListener('scroll', () => {
+        const threshold = window.innerHeight * 0.15; // Snappy mute threshold (15% of screen height)
+        if (window.scrollY > threshold) {
+          fgVideo.muted = true;
+          bgVideo.muted = true;
+        } else {
+          // Restore previous user mute state when returning to full focus at the top
+          fgVideo.muted = userMuteStateBeforeScroll;
+          bgVideo.muted = true; // Keep background video permanently muted to prevent echoing
+        }
+      }, { passive: true });
 
       // 6. Intersection Observer for Scroll reveals (when scroll-timeline is unsupported)
       if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
